@@ -1,0 +1,15 @@
+CTA_SIMPIPE:
+  APPLICATION: simtools-production-generate-grid
+  TEST_NAME: production_generate_grid
+  CONFIGURATION:
+    SITE: "North"
+    MODEL_VERSION: "6.0.0"
+    AXES: tests/resources/production_grid_generation_axes_definition.yaml
+    CTAO_DATA_LEVEL: "B"
+    SCIENCE_CASE: "high_precision"
+    COORDINATE_SYSTEM: "ra_dec"
+    OBSERVING_TIME: "2017-09-16 00:00:00"
+    OUTPUT_PATH: simtools-output
+    OUTPUT_FILE: grid_output.json
+  INTEGRATION_TESTS:
+    - OUTPUT_FILE: "grid_output.json"

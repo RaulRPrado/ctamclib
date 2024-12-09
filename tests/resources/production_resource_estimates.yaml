@@ -1,0 +1,107 @@
+# "North":  # Hyperarray values downscaled from ratio of alpha test prod dark vs dark+moon
+# # scaling factors: 1.55764075, 1.62695035, 1.63798531, 1.43891403
+#   20:
+#     compute_hours_per_event: 8.39543043e-05
+#     storage_gb_per_event: 7.39148427e-07
+#   40:
+#     compute_hours_per_event: 1.27573040e-04
+#     storage_gb_per_event: 1.07836354e-06
+#   52:
+#     compute_hours_per_event: 1.56466962e-04
+#     storage_gb_per_event: 1.10491071e-06
+#   60:
+#     compute_hours_per_event: 1.85291893e-04
+#     storage_gb_per_event: 9.99566846e-07
+
+# North:
+#   Zenith:
+#     20:
+#       compute_per_event:
+#         value: 8.39543043e-05
+#         unit: hr
+#       storage_per_event:
+#         value: 7.39148427e-07
+#         unit: GB
+#     40:
+#       compute_per_event:
+#         value: 1.27573040e-04
+#         unit: hr
+#       storage_per_event:
+#         value: 1.07836354e-06
+#         unit: GB
+#     52:
+#       compute_per_event:
+#         value: 1.56466962e-04
+#         unit: hr
+#       storage_per_event:
+#         value: 1.10491071e-06
+#         unit: GB
+#     60:
+#       compute_per_event:
+#         value: 1.85291893e-04
+#         unit: hr
+#       storage_per_event:
+#         value: 9.99566846e-07
+#         unit: GB
+
+North:
+  Zenith:
+    20:
+      compute_per_event:
+        value: 4.97333333e-05
+        unit: hr
+      storage_per_event:
+        value: 2.61397111e-07
+        unit: GB
+    40:
+      compute_per_event:
+        value: 8.54545455e-05
+        unit: hr
+      storage_per_event:
+        value: 3.57902020e-07
+        unit: GB
+    52:
+      compute_per_event:
+        value: 1.36142857e-04
+        unit: hr
+      storage_per_event:
+        value: 3.77812381e-07
+        unit: GB
+    60:
+      compute_per_event:
+        value: 1.67494737e-04
+        unit: hr
+      storage_per_event:
+        value: 3.59372632e-07
+        unit: GB
+
+South:
+  Zenith:
+    20:
+      compute_per_event:
+        value: 5.0e-06
+        unit: hr
+      storage_per_event:
+        value: 5.0e-07
+        unit: GB
+    40:
+      compute_per_event:
+        value: 4.0e-06
+        unit: hr
+      storage_per_event:
+        value: 4.0e-07
+        unit: GB
+    52:
+      compute_per_event:
+        value: 2.5e-06
+        unit: hr
+      storage_per_event:
+        value: 2.5e-07
+        unit: GB
+    60:
+      compute_per_event:
+        value: 2.0e-06
+        unit: hr
+      storage_per_event:
+        value: 2.0e-07
+        unit: GB
