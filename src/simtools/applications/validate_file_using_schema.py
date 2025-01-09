@@ -64,10 +64,10 @@ def _parse(label, description):
     group.add_argument(
         "--model_parameters_directory",
         help=(
-            "Directory with json files with model parameters to be validated."
-            "All *.json files in the directory will be validated."
-            "Schema files will be taken from simtools/schemas/model_parameters/."
-            "Note that in this case the data_type argument is ignored"
+            "Directory with json files with model parameters to be validated. "
+            "All *.json files in the directory will be validated. "
+            "Schema files will be taken from simtools/schemas/model_parameters/. "
+            "Note that in this case the data_type argument is ignored "
             "and data_type=model_parameter is always used."
         ),
     )

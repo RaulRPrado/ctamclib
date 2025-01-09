@@ -11,7 +11,7 @@ from astropy import units as u
 from dotenv import dotenv_values, load_dotenv
 
 import simtools.io_operations.io_handler
-from simtools.camera_efficiency import CameraEfficiency
+from simtools.camera.camera_efficiency import CameraEfficiency
 from simtools.configuration.configurator import Configurator
 from simtools.corsika.corsika_config import CorsikaConfig
 from simtools.db import db_handler

@@ -6,7 +6,7 @@ from pathlib import Path
 import astropy.units as u
 import pytest
 
-from simtools.camera_efficiency import CameraEfficiency
+from simtools.camera.camera_efficiency import CameraEfficiency
 from simtools.simtel.simulator_camera_efficiency import SimulatorCameraEfficiency
 
 logger = logging.getLogger()

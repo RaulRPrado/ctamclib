@@ -7,7 +7,7 @@ import astropy.units as u
 import pytest
 from astropy.table import Table
 
-from simtools.camera_efficiency import CameraEfficiency
+from simtools.camera.camera_efficiency import CameraEfficiency
 from simtools.model.site_model import SiteModel
 from simtools.model.telescope_model import TelescopeModel
 from simtools.simtel.simulator_camera_efficiency import SimulatorCameraEfficiency
