@@ -266,6 +266,21 @@ class ModelParameter:
                     file_name=(par_now.get("value") or par_now.get("Value")),
                 )
 
+    def has_parameter(self, par_name):
+        """Check whether a parameter exists in the model or not.
+
+        Parameters
+        ----------
+        par_name : str
+            Name of the parameter.
+
+        Returns
+        -------
+        bool
+            True if parameter exists in the model.
+        """
+        return par_name in self._parameters
+
     def print_parameters(self):
         """Print parameters and their values for debugging purposes."""
         for par in self._parameters:
