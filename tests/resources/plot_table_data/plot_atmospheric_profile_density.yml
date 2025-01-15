@@ -1,0 +1,22 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: atmospheric_profile
+    TITLE: 'Atmospheric density profile'
+    XTITLE: 'Height [km]'
+    YTITLE: 'Densitity [g/cm^3]'
+    YSCALE: 'log'
+    NO_MARKERS: True
+    PLOT_RATIO: True
+    TABLES:
+      - PARAMETER: atmospheric_profile
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'North'
+        COLUMN_X: 'altitude'
+        COLUMN_Y: 'density'
+      - PARAMETER: atmospheric_profile
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'South'
+        COLUMN_X: 'altitude'
+        COLUMN_Y: 'density'

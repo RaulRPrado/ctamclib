@@ -182,9 +182,7 @@ def main():  # noqa: D103
 
     plot_file_name = label + "_" + tel_model.name + "_cumulative_PSF"
     plot_file = output_dir.joinpath(plot_file_name)
-    for f in ["pdf", "png"]:
-        plt.savefig(str(plot_file) + "." + f, format=f, bbox_inches="tight")
-    fig.clf()
+    visualize.save_figure(fig, plot_file)
 
     # Plotting image
     data_to_plot = im.get_image_data()
@@ -195,9 +193,7 @@ def main():  # noqa: D103
 
     plot_file_name = label + "_" + tel_model.name + "_image"
     plot_file = output_dir.joinpath(plot_file_name)
-    for f in ["pdf", "png"]:
-        fig.savefig(str(plot_file) + "." + f, format=f, bbox_inches="tight")
-    fig.clf()
+    visualize.save_figure(fig, plot_file)
 
 
 if __name__ == "__main__":

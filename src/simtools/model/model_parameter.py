@@ -6,10 +6,12 @@ import shutil
 from copy import copy
 
 import astropy.units as u
+from astropy.table import Table
 
 import simtools.utils.general as gen
 from simtools.db import db_handler
 from simtools.io_operations import io_handler
+from simtools.simtel import simtel_table_reader
 from simtools.simtel.simtel_config_writer import SimtelConfigWriter
 from simtools.utils import names
 
@@ -273,7 +275,7 @@ class ModelParameter:
 
     def _set_config_file_directory_and_name(self):
         """Set and create the directory and the name of the config file."""
-        if self.name is None:
+        if self.name is None and self.site is None:
             return
 
         self._config_file_directory = self.io_handler.get_output_directory(
@@ -281,15 +283,14 @@ class ModelParameter:
         )
 
         # Setting file name and the location
-        if self.site is not None and self.name is not None:
-            config_file_name = names.simtel_config_file_name(
-                self.site,
-                self.model_version,
-                telescope_model_name=self.name,
-                label=self.label,
-                extra_label=self._extra_label,
-            )
-            self._config_file_path = self.config_file_directory.joinpath(config_file_name)
+        config_file_name = names.simtel_config_file_name(
+            self.site,
+            self.model_version,
+            telescope_model_name=self.name,
+            label=self.label,
+            extra_label=self._extra_label,
+        )
+        self._config_file_path = self.config_file_directory.joinpath(config_file_name)
 
         self._logger.debug(f"Config file path: {self._config_file_path}")
 
@@ -514,6 +515,35 @@ class ModelParameter:
 
         self.db.export_model_files(pars_from_db, self.config_file_directory)
         self._is_exported_model_files_up_to_date = True
+
+    def get_model_file_as_table(self, par_name):
+        """
+        Return tabular data from file as astropy table.
+
+        Parameters
+        ----------
+        par_name: str
+            Name of the parameter.
+
+        Returns
+        -------
+        Table
+            Astropy table.
+        """
+        _par_entry = {}
+        try:
+            _par_entry[par_name] = self._parameters[par_name]
+        except KeyError as exc:
+            raise ValueError(f"Parameter {par_name} not found in the model.") from exc
+        self.db.export_model_files(_par_entry, self.config_file_directory)
+        if _par_entry[par_name]["value"].endswith("ecsv"):
+            return Table.read(
+                self.config_file_directory.joinpath(_par_entry[par_name]["value"]),
+                format="ascii.ecsv",
+            )
+        return simtel_table_reader.read_simtel_table(
+            par_name, self.config_file_directory.joinpath(_par_entry[par_name]["value"])
+        )
 
     def export_config_file(self):
         """Export the config file used by sim_telarray."""

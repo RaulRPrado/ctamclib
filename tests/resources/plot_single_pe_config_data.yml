@@ -1,0 +1,16 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: single_pe
+    TITLE: 'Single p.e. response'
+    XTITLE: 'Amplitude'
+    YTITLE: 'Response'
+    XSCALE: 'linear'
+    YSCALE: 'log'
+    XLIM: [0., 40.]
+    YLIM: [1.e-11, null]
+    TABLES:
+      - FILE_NAME: tests/resources//SinglePhe_spectrum_totalfit_19pixel-average_20200601.csv
+        TYPE: "legacy_lst_single_pe"
+        LABEL: 'LST-legacy'
+        COLUMN_X: 'amplitude'
+        COLUMN_Y: 'response'

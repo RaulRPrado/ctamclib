@@ -140,6 +140,7 @@ def test_print_parameters(telescope_model_lst, capsys):
 def test_set_config_file_directory_and_name(telescope_model_lst, caplog):
     telescope_copy = copy.deepcopy(telescope_model_lst)
     telescope_copy.name = None
+    telescope_copy.site = None
     with caplog.at_level(logging.DEBUG):
         telescope_copy._set_config_file_directory_and_name()
     assert "Config file path" not in caplog.text
@@ -378,3 +379,32 @@ def test_export_nsb_spectrum_to_telescope_altitude_correction_file(telescope_mod
         },
         model_directory,
     )
+
+
+def test_get_model_file_as_table(telescope_model_lst, mocker):
+
+    telescope_copy = copy.deepcopy(telescope_model_lst)
+
+    with pytest.raises(ValueError, match="Parameter not_a_parameter not found in the model"):
+        telescope_copy.get_model_file_as_table("not_a_parameter")
+
+    mock_db_export = mocker.patch.object(DatabaseHandler, "export_model_files")
+    mock_simtel_table_reader = mocker.patch("simtools.simtel.simtel_table_reader.read_simtel_table")
+    telescope_copy.get_model_file_as_table("pm_photoelectron_spectrum")
+
+    assert mock_db_export.call_count == 1
+    assert mock_simtel_table_reader.call_count == 1
+
+
+def test_get_model_file_as_ecsv_table(telescope_model_sst, mocker):
+
+    telescope_copy = copy.deepcopy(telescope_model_sst)
+
+    mock_db_export = mocker.patch.object(DatabaseHandler, "export_model_files")
+    mock_simtel_table_reader = mocker.patch("simtools.simtel.simtel_table_reader.read_simtel_table")
+    mock_astropy_table_reader = mocker.patch("astropy.table.Table.read")
+    telescope_copy.get_model_file_as_table("secondary_mirror_incidence_angle")
+
+    assert mock_db_export.call_count == 1
+    assert mock_simtel_table_reader.call_count == 0
+    assert mock_astropy_table_reader.call_count == 1

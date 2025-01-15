@@ -1,0 +1,57 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: mirror reflectivity
+    TITLE: 'Mirror reflectivity'
+    XTITLE: 'Wavelength [nm]'
+    YTITLE: 'Reflectivity'
+    NO_MARKERS: True
+    TABLES:
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: LSTN-01
+        SITE: North
+        MODEL_VERSION: 6.0.0
+        LABEL: 'LSTN-01'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity'
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: LSTN-02
+        SITE: North
+        MODEL_VERSION: 6.0.0
+        LABEL: 'LSTN-02'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity'
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: LSTN-03
+        SITE: North
+        MODEL_VERSION: 6.0.0
+        LABEL: 'LSTN-03'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity'
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: LSTN-04
+        SITE: North
+        MODEL_VERSION: 6.0.0
+        LABEL: 'LSTN-04'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity'
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: MSTN-design
+        SITE: North
+        MODEL_VERSION: 6.0.0
+        LABEL: 'MSTN'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity'
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: LSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'LSTS'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity'
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: MSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'MSTS'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity'

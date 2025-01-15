@@ -1,0 +1,43 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: camera filter
+    TITLE: 'Camera filter'
+    XTITLE: 'Wavelength (nm)'
+    YTITLE: 'Transmission'
+    NO_MARKERS: True
+    TABLES:
+      - PARAMETER: camera_filter
+        TELESCOPE: LSTN-01
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'LSTN-01'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'transmission'
+      - PARAMETER: camera_filter
+        TELESCOPE: LSTN-02
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'LSTN-02'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'transmission'
+      - PARAMETER: camera_filter
+        TELESCOPE: MSTN-design
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'MSTN'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'transmission'
+      - PARAMETER: camera_filter
+        TELESCOPE: MSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'MSTS'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'transmission'
+      - PARAMETER: camera_filter
+        TELESCOPE: SSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'SSTS'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'transmission'

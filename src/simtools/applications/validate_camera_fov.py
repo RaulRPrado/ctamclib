@@ -54,7 +54,7 @@ import simtools.utils.general as gen
 from simtools.configuration import configurator
 from simtools.io_operations import io_handler
 from simtools.model.telescope_model import TelescopeModel
-from simtools.visualization import plot_camera
+from simtools.visualization import plot_camera, visualize
 
 
 def _parse():
@@ -133,11 +133,7 @@ def main():  # noqa: D103
             ) from exc
     fig = plot_camera.plot_pixel_layout(camera, args_dict["camera_in_sky_coor"], pixel_ids_to_print)
     plot_file_prefix = output_dir.joinpath(f"{label}_{tel_model.name}_pixel_layout")
-    for suffix in ["pdf", "png"]:
-        file_name = f"{plot_file_prefix!s}.{suffix}"
-        fig.savefig(file_name, format=suffix, bbox_inches="tight")
-        print(f"\nSaved camera plot in {file_name}\n")
-    fig.clf()
+    visualize.save_figure(fig, f"{plot_file_prefix!s}", log_title="camera")
 
 
 if __name__ == "__main__":

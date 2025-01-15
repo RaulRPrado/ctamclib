@@ -514,7 +514,4 @@ class CameraEfficiency:
         plot_file = self.output_dir.joinpath(
             self.label + "_" + self.telescope_model.name + "_" + plot_title
         )
-        for f in ["pdf", "png"]:
-            fig.savefig(str(plot_file) + "." + f, format=f, bbox_inches="tight")
-        self._logger.info(f"Plotted {plot_title} efficiency in {plot_file}")
-        fig.clf()
+        visualize.save_figure(fig, plot_file, log_title=f"{plot_title} efficiency")

@@ -1,0 +1,22 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: NSB spectrum
+    TITLE: 'NSB spectrum'
+    XTITLE: 'Wavelength [nm]'
+    YTITLE: 'Differential photon rate [10^9 / (nm s m^2 sr)]'
+    XSCALE: 'linear'
+    YSCALE: 'log'
+    NO_MARKERS: True
+    TABLES:
+      - PARAMETER: nsb_reference_spectrum
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'North'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'differential photon rate'
+      - PARAMETER: nsb_reference_spectrum
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'South'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'differential photon rate'

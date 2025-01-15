@@ -1,0 +1,43 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: mirror reflectivity
+    TITLE: 'Mirror reflectivity (SSTS)'
+    XTITLE: 'Wavelength (nm)'
+    YTITLE: 'Reflectivity'
+    NO_MARKERS: True
+    TABLES:
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: SSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: '0deg'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity_0deg'
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: SSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: '20deg'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity_20deg'
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: SSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: '40deg'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity_40deg'
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: SSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: '60deg'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity_60deg'
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: SSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: '80deg'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity_80deg'

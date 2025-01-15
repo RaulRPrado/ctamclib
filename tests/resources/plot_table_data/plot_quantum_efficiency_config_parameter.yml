@@ -1,0 +1,43 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: quantum_efficiency
+    TITLE: 'Quantum/detection efficiency'
+    XTITLE: 'Wavelength [nm]'
+    YTITLE: 'Quantum/detection efficiency'
+    NO_MARKERS: True
+    TABLES:
+      - PARAMETER: quantum_efficiency
+        TELESCOPE: LSTN-01
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'LSTN-01'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'efficiency'
+      - PARAMETER: quantum_efficiency
+        TELESCOPE: LSTN-02
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'LSTN-02'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'efficiency'
+      - PARAMETER: quantum_efficiency
+        TELESCOPE: MSTN-design
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'MSTN'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'efficiency'
+      - PARAMETER: quantum_efficiency
+        TELESCOPE: MSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'MSTS'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'efficiency'
+      - PARAMETER: quantum_efficiency
+        TELESCOPE: SSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'SSTS'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'efficiency'

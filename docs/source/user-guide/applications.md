@@ -45,6 +45,7 @@ simtools-plot-array-layout <applications/simtools-plot-array-layout>
 simtools-production-generate-simulation-config <applications/simtools-production-generate-simulation-config>
 simtools-production-scale-events <applications/simtools-production-scale-events>
 simtools-simulate-light-emission <applications/simtools-simulate-light-emission>
+simtools-plot-tabular-data <applications/simtools-plot-tabular-data>
 simtools-simulate-prod <applications/simtools-simulate-prod>
 simtools-simulate-prod-htcondor-generator <applications/simtools-simulate-prod-htcondor-generator>
 simtools-submit-data-from-external <applications/simtools-submit-data-from-external>
@@ -54,4 +55,3 @@ simtools-validate-camera-fov <applications/simtools-validate-camera-fov>
 simtools-validate-cumulative-psf <applications/simtools-validate-cumulative-psf>
 simtools-validate-file-using-schema  <applications/simtools-validate-file-using-schema>
 simtools-validate-optics <applications/simtools-validate-optics>
-```

@@ -1,0 +1,11 @@
+CTA_SIMPIPE:
+  APPLICATION: simtools-plot-tabular-data
+  TEST_NAME: pm_photoelectron_spectrum
+  CONFIGURATION:
+    PLOT_CONFIG: tests/resources/plot_table_data/plot_single_pe_config_parameter.yml
+    OUTPUT_FILE: single_pe
+    OUTPUT_PATH: simtools-output
+    USE_PLAIN_OUTPUT_PATH: true
+  INTEGRATION_TESTS:
+    - OUTPUT_FILE: single_pe.pdf
+    - OUTPUT_FILE: single_pe.png

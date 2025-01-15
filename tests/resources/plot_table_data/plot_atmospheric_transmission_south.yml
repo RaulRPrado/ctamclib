@@ -1,0 +1,55 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: atmospheric_transmission
+    TITLE: 'Atmospheric transmission profile'
+    XTITLE: 'Wavelength [nm]'
+    YTITLE: 'Extinction'
+    YSCALE: 'log'
+    NO_MARKERS: True
+#    PLOT_RATIO: True
+    TABLES:
+      - PARAMETER: atmospheric_transmission
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'South (30 km)'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'extinction'
+        SELECT_VALUES:
+          COLUMN_NAME: 'altitude'
+          VALUE: 30.0
+      - PARAMETER: atmospheric_transmission
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'South (15 km)'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'extinction'
+        SELECT_VALUES:
+          COLUMN_NAME: 'altitude'
+          VALUE: 15.0
+      - PARAMETER: atmospheric_transmission
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'South (10 km)'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'extinction'
+        SELECT_VALUES:
+          COLUMN_NAME: 'altitude'
+          VALUE: 10.0
+      - PARAMETER: atmospheric_transmission
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'South (5 km)'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'extinction'
+        SELECT_VALUES:
+          COLUMN_NAME: 'altitude'
+          VALUE: 5.0
+      - PARAMETER: atmospheric_transmission
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'South (2.4 km)'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'extinction'
+        SELECT_VALUES:
+          COLUMN_NAME: 'altitude'
+          VALUE: 2.356

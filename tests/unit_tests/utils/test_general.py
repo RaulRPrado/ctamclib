@@ -11,6 +11,7 @@ from unittest.mock import patch
 import numpy as np
 import pytest
 import yaml
+from astropy.table import Table
 
 import simtools.utils.general as gen
 
@@ -626,3 +627,84 @@ def test_read_file_encoded_in_utf_or_latin(tmp_test_directory, caplog) -> None:
     non_existent_file = tmp_test_directory / "non_existent_file.txt"
     with pytest.raises(FileNotFoundError):
         gen.read_file_encoded_in_utf_or_latin(non_existent_file)
+
+
+def test_get_structure_array_from_table():
+    table = Table(
+        {
+            "col1": [1, 2, 3],
+            "col2": [4.0, 5.0, 6.0],
+            "col3": ["a", "b", "c"],
+        }
+    )
+
+    # Test with all columns
+    column_names = ["col1", "col2", "col3"]
+    structured_array = gen.get_structure_array_from_table(table, column_names)
+    assert structured_array.dtype.names == ("col1", "col2", "col3")
+    assert structured_array["col1"].tolist() == [1, 2, 3]
+    assert structured_array["col2"].tolist() == [4.0, 5.0, 6.0]
+    assert structured_array["col3"].tolist() == ["a", "b", "c"]
+
+    # Test with a subset of columns
+    column_names = ["col1", "col3"]
+    structured_array = gen.get_structure_array_from_table(table, column_names)
+    assert structured_array.dtype.names == ("col1", "col3")
+    assert structured_array["col1"].tolist() == [1, 2, 3]
+    assert structured_array["col3"].tolist() == ["a", "b", "c"]
+
+    # Test with a single column
+    column_names = ["col2"]
+    structured_array = gen.get_structure_array_from_table(table, column_names)
+    assert structured_array.dtype.names == ("col2",)
+    assert structured_array["col2"].tolist() == [4.0, 5.0, 6.0]
+
+    # Test with an empty list of columns
+    column_names = []
+    assert gen.get_structure_array_from_table(table, column_names).size == 0
+
+    # Test with a non-existent column
+    column_names = ["col1", "non_existent_col"]
+    with pytest.raises(KeyError):
+        gen.get_structure_array_from_table(table, column_names)
+
+
+def test_convert_keys_in_dict_to_lowercase():
+    """
+    Test the convert_keys_in_dict_to_lowercase function.
+    """
+
+    # Test with a simple dictionary.
+    input_data = {"Key1": "value1", "Key2": "value2"}
+    expected_output = {"key1": "value1", "key2": "value2"}
+    assert gen.convert_keys_in_dict_to_lowercase(input_data) == expected_output
+
+    # Test with a nested dictionary.
+    input_data = {"Key1": {"NestedKey1": "value1"}, "Key2": "value2"}
+    expected_output = {"key1": {"nestedkey1": "value1"}, "key2": "value2"}
+    assert gen.convert_keys_in_dict_to_lowercase(input_data) == expected_output
+
+    # Test with a dictionary containing a list.
+    input_data = {"Key1": ["Value1", {"NestedKey1": "value1"}], "Key2": "value2"}
+    expected_output = {"key1": ["Value1", {"nestedkey1": "value1"}], "key2": "value2"}
+    assert gen.convert_keys_in_dict_to_lowercase(input_data) == expected_output
+
+    # Test with a list of dictionaries.
+    input_data = [{"Key1": "value1"}, {"Key2": "value2"}]
+    expected_output = [{"key1": "value1"}, {"key2": "value2"}]
+    assert gen.convert_keys_in_dict_to_lowercase(input_data) == expected_output
+
+    # Test with a non-dictionary input.
+    input_data = "String"
+    expected_output = "String"
+    assert gen.convert_keys_in_dict_to_lowercase(input_data) == expected_output
+
+    # Test with an empty dictionary.
+    input_data = {}
+    expected_output = {}
+    assert gen.convert_keys_in_dict_to_lowercase(input_data) == expected_output
+
+    # Test with a dictionary containing mixed types.
+    input_data = {"Key1": 123, "Key2": [1, 2, 3], "Key3": {"NestedKey1": "value1"}}
+    expected_output = {"key1": 123, "key2": [1, 2, 3], "key3": {"nestedkey1": "value1"}}
+    assert gen.convert_keys_in_dict_to_lowercase(input_data) == expected_output

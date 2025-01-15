@@ -1,0 +1,52 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: discriminator_pulse_shape
+    TITLE: 'Discriminator pulse shape'
+    XTITLE: 'Time [ns]'
+    YTITLE: 'Amplitude [a.u.]'
+    NO_MARKERS: True
+    TABLES:
+      - PARAMETER: discriminator_pulse_shape
+        TELESCOPE: LSTN-01
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'LSTN-01 (high gain)'
+        COLUMN_X: 'time'
+        COLUMN_Y: 'amplitude'
+      - PARAMETER: discriminator_pulse_shape
+        TELESCOPE: LSTN-01
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'LSTN-01 (low gain)'
+        COLUMN_X: 'time'
+        COLUMN_Y: 'amplitude (low gain)'
+      - PARAMETER: discriminator_pulse_shape
+        TELESCOPE: MSTN-design
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'MSTN (high gain)'
+        COLUMN_X: 'time'
+        COLUMN_Y: 'amplitude'
+        NORMALIZE_Y: True
+      - PARAMETER: discriminator_pulse_shape
+        TELESCOPE: MSTN-design
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'MSTN (low gain)'
+        COLUMN_X: 'time'
+        COLUMN_Y: 'amplitude (low gain)'
+        NORMALIZE_Y: True
+      - PARAMETER: discriminator_pulse_shape
+        TELESCOPE: MSTS-design
+        SITE: SOUTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'MSTS'
+        COLUMN_X: 'time'
+        COLUMN_Y: 'amplitude'
+      - PARAMETER: discriminator_pulse_shape
+        TELESCOPE: SSTS-design
+        SITE: SOUTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'SSTS'
+        COLUMN_X: 'time'
+        COLUMN_Y: 'amplitude'

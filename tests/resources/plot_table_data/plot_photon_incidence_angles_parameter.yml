@@ -1,0 +1,29 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: Photon incident angles
+    TITLE: 'Photon incident angles'
+    XTITLE: 'Photon incident angle [deg]'
+    YTITLE: 'Fraction'
+    NO_MARKERS: True
+    TABLES:
+      - PARAMETER: camera_filter_incidence_angle
+        TELESCOPE: SSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'Camera filter'
+        COLUMN_X: 'Incidence angle'
+        COLUMN_Y: 'Fraction'
+      - PARAMETER: primary_mirror_incidence_angle
+        TELESCOPE: SSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'Primary mirror'
+        COLUMN_X: 'Incidence angle'
+        COLUMN_Y: 'Fraction'
+      - PARAMETER: secondary_mirror_incidence_angle
+        TELESCOPE: SSTS-design
+        SITE: South
+        MODEL_VERSION: 6.0.0
+        LABEL: 'Secondary mirror'
+        COLUMN_X: 'Incidence angle'
+        COLUMN_Y: 'Fraction'

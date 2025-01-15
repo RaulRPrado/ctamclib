@@ -1,0 +1,43 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: lightguide_efficiency_vs_incidence_angle
+    TITLE: 'Light guide efficiency'
+    XTITLE: 'Incident angle [deg]'
+    YTITLE: 'Efficiency'
+    NO_MARKERS: True
+    TABLES:
+      - PARAMETER: lightguide_efficiency_vs_incidence_angle
+        TELESCOPE: LSTN-01
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'LSTN-01'
+        COLUMN_X: 'angle'
+        COLUMN_Y: 'efficiency'
+      - PARAMETER: lightguide_efficiency_vs_incidence_angle
+        TELESCOPE: LSTN-02
+        SITE: NORTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'LSTN-02'
+        COLUMN_X: 'angle'
+        COLUMN_Y: 'efficiency'
+      - PARAMETER: lightguide_efficiency_vs_wavelength
+        TELESCOPE: MSTN-design
+        SITE: North
+        MODEL_VERSION: 6.0.0
+        LABEL: 'MSTN'
+        COLUMN_X: 'angle'
+        COLUMN_Y: 'efficiency'
+      - PARAMETER: lightguide_efficiency_vs_incidence_angle
+        TELESCOPE: MSTS-design
+        SITE: SOUTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'MSTS'
+        COLUMN_X: 'angle'
+        COLUMN_Y: 'efficiency'
+      - PARAMETER: lightguide_efficiency_vs_incidence_angle
+        TELESCOPE: SSTS-design
+        SITE: SOUTH
+        MODEL_VERSION: 6.0.0
+        LABEL: 'SSTS'
+        COLUMN_X: 'angle'
+        COLUMN_Y: 'efficiency'
