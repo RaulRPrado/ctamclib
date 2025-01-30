@@ -1,0 +1,37 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: discriminator_pulse_shape
+    TITLE: 'Discriminator pulse shape for {telescope}'
+    XTITLE: 'Time [ns]'
+    YTITLE: 'Amplitude [a.u.]'
+    NO_MARKERS: True
+    TABLES:
+      - PARAMETER: discriminator_pulse_shape
+        TELESCOPE: {telescope}
+        SITE: {site}
+        MODEL_VERSION: 5.0.0
+        LABEL: '5.0.0 (high gain)'
+        COLUMN_X: 'time'
+        COLUMN_Y: 'amplitude'
+      - PARAMETER: discriminator_pulse_shape
+        TELESCOPE: {telescope}
+        SITE: {site}
+        MODEL_VERSION: 5.0.0
+        LABEL: '5.0.0 (low gain)'
+        COLUMN_X: 'time'
+        COLUMN_Y: 'amplitude (low gain)'
+      - PARAMETER: discriminator_pulse_shape
+        TELESCOPE: {telescope}
+        SITE: {site}
+        MODEL_VERSION: 6.0.0
+        LABEL: '6.0.0 (high gain)'
+        COLUMN_X: 'time'
+        COLUMN_Y: 'amplitude'
+      - PARAMETER: discriminator_pulse_shape
+        TELESCOPE: {telescope}
+        SITE: {site}
+        MODEL_VERSION: 6.0.0
+        LABEL: '6.0.0 (low gain)'
+        COLUMN_X: 'time'
+        COLUMN_Y: 'amplitude (low gain)'
+

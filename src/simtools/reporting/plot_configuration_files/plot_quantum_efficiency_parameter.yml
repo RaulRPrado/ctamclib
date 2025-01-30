@@ -1,0 +1,23 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: quantum_efficiency
+    TITLE: 'Quantum/detection efficiency of {telescope}'
+    XTITLE: 'Wavelength [nm]'
+    YTITLE: 'Quantum/detection efficiency'
+    NO_MARKERS: True
+    TABLES:
+      - PARAMETER: quantum_efficiency
+        TELESCOPE: {telescope}
+        SITE: {site}
+        MODEL_VERSION: 5.0.0
+        LABEL: '5.0.0'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'efficiency'
+      - PARAMETER: quantum_efficiency
+        TELESCOPE: {telescope}
+        SITE: {site}
+        MODEL_VERSION: 6.0.0
+        LABEL: '6.0.0'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'efficiency'
+

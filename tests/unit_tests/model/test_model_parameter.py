@@ -131,6 +131,12 @@ def test_handling_parameters(telescope_model_lst):
         tel_model._get_parameter_dict("bla_bla")
 
 
+def test_has_parameter(telescope_model_lst):
+    tel_model = telescope_model_lst
+    assert tel_model.has_parameter("secondary_mirror_diameter") is False
+    assert tel_model.has_parameter("focus_offset") is True
+
+
 def test_print_parameters(telescope_model_lst, capsys):
     tel_model = telescope_model_lst
     tel_model.print_parameters()

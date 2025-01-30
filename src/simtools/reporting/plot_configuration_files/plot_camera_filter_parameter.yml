@@ -1,0 +1,23 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: camera filter
+    TITLE: 'Camera filter for {telescope}'
+    XTITLE: 'Wavelength (nm)'
+    YTITLE: 'Transmission'
+    NO_MARKERS: True
+    TABLES:
+      - PARAMETER: camera_filter
+        TELESCOPE: {telescope}
+        SITE: {site}
+        MODEL_VERSION: 5.0.0
+        LABEL: '5.0.0'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'transmission'
+      - PARAMETER: camera_filter
+        TELESCOPE: {telescope}
+        SITE: {site}
+        MODEL_VERSION: 6.0.0
+        LABEL: '6.0.0'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'transmission'
+      

@@ -1,0 +1,23 @@
+CTA_SIMPIPE:
+  PLOT:
+    TYPE: mirror reflectivity
+    TITLE: 'Mirror reflectivity for {telescope}'
+    XTITLE: 'Wavelength [nm]'
+    YTITLE: 'Reflectivity'
+    NO_MARKERS: True
+    TABLES:
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: {telescope}
+        SITE: {site}
+        MODEL_VERSION: 5.0.0
+        LABEL: '5.0.0'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity'
+      - PARAMETER: mirror_reflectivity
+        TELESCOPE: {telescope}
+        SITE: {site}
+        MODEL_VERSION: 6.0.0
+        LABEL: '6.0.0'
+        COLUMN_X: 'wavelength'
+        COLUMN_Y: 'reflectivity'
+
