@@ -80,6 +80,7 @@ scripts.simtools-db-get-file-from-db = "simtools.applications.db_get_file_from_d
 scripts.simtools-db-get-parameter-from-db = "simtools.applications.db_get_parameter_from_db:main"
 scripts.simtools-db-inspect-databases = "simtools.applications.db_inspect_databases:main"
 scripts.simtools-derive-mirror-rnda = "simtools.applications.derive_mirror_rnda:main"
+scripts.simtools-derive-photon-electron-spectrum = "simtools.applications.derive_photon_electron_spectrum:main"
 scripts.simtools-derive-psf-parameters = "simtools.applications.derive_psf_parameters:main"
 scripts.simtools-generate-array-config = "simtools.applications.generate_array_config:main"
 scripts.simtools-generate-corsika-histograms = "simtools.applications.generate_corsika_histograms:main"

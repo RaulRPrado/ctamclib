@@ -1,0 +1,18 @@
+CTA_SIMPIPE:
+  APPLICATION: simtools-derive-photon-electron-spectrum
+  TEST_NAME: LST_ecsv
+  CONFIGURATION:
+    INPUT_SPECTRUM: ./tests/resources/SinglePhe_spectrum_totalfit_19pixel-average_20200601.ecsv
+    AFTERPULSE_SPECTRUM: ./tests/resources/LST_afterpulses.ecsv
+    STEP_SIZE: 0.02
+    USE_NORM_SPE: true
+    OUTPUT_PATH: simtools-output
+    OUTPUT_FILE: test_single_pe_lst.ecsv
+    USE_PLAIN_OUTPUT_PATH: true
+    LOG_LEVEL: DEBUG
+  INTEGRATION_TESTS:
+    - OUTPUT_FILE: test_single_pe_lst.dat
+    - OUTPUT_FILE: test_single_pe_lst.ecsv
+    - REFERENCE_OUTPUT_FILE: |
+        tests/resources/spe_LST_2022-04-27_AP2.0e-4.ecsv
+      TOLERANCE: 1.e-4

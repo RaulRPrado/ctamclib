@@ -47,7 +47,7 @@ import logging
 from pathlib import Path
 
 import simtools.utils.general as gen
-from simtools.camera_efficiency import CameraEfficiency
+from simtools.camera.camera_efficiency import CameraEfficiency
 from simtools.configuration import configurator
 
 

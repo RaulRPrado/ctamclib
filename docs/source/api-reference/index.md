@@ -8,7 +8,7 @@ simtools is composed of the following modules and module groups:
 :glob: true
 :maxdepth: 1
 
-camera_efficiency
+camera
 configuration_module
 corsika
 data_model

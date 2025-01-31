@@ -35,6 +35,7 @@ simtools-db-get-file-from-db <applications/simtools-db-get-file-from-db>
 simtools-db-get-parameter-from-db <applications/simtools-db-get-parameter-from-db>
 simtools-db-inspect-databases  <applications/simtools-db-inspect-databases>
 simtools-derive-mirror-rnda <applications/simtools-derive-mirror-rnda>
+simtools-derive-photon-electron-spectrum <applications/simtools-derive-photon-electron-spectrum>
 simtools-derive-psf-parameters <applications/simtools-derive-psf-parameters>
 simtools-generate-array-config <applications/simtools-generate-array-config>
 simtools-generate-corsika-histograms <applications/simtools-generate-corsika-histograms>
