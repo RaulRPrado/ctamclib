@@ -14,6 +14,7 @@ import yaml
 from astropy.table import Table
 
 import simtools.utils.general as gen
+from simtools.constants import MODEL_PARAMETER_METASCHEMA
 
 url_desy = "https://www.desy.de"
 url_simtools = "https://raw.githubusercontent.com/gammasim/simtools/main/"
@@ -43,10 +44,24 @@ def test_collect_dict_data(io_handler, caplog) -> None:
     assert len(_dict) > 0
 
     # file with several documents
-    _file = "src/simtools/schemas/model_parameter.metaschema.yml"
-    _list = gen.collect_data_from_file(_file)
+    _list = gen.collect_data_from_file(MODEL_PARAMETER_METASCHEMA)
     assert isinstance(_list, list)
     assert len(_list) > 0
+
+    # file with several documents - get first document
+    _dict = gen.collect_data_from_file(MODEL_PARAMETER_METASCHEMA, 0)
+    assert _dict["version"] != "0.1.0"
+
+    with pytest.raises(gen.InvalidConfigDataError, match=r"^YAML file"):
+        gen.collect_data_from_file(MODEL_PARAMETER_METASCHEMA, 999)
+
+    # document type not supported
+    assert (
+        gen.collect_data_from_file(
+            "tests/resources/run1_proton_za20deg_azm0deg_North_1LST_test-lst-array.corsika.zst"
+        )
+        is None
+    )
 
 
 def test_collect_dict_from_url(io_handler) -> None:

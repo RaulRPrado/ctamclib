@@ -10,13 +10,12 @@ import datetime
 import getpass
 import logging
 import uuid
-from importlib.resources import files
 from pathlib import Path
 
 import simtools.constants
 import simtools.utils.general as gen
 import simtools.version
-from simtools.data_model import metadata_model
+from simtools.data_model import metadata_model, schema
 from simtools.io_operations import io_handler
 from simtools.utils import names
 
@@ -135,7 +134,7 @@ class MetadataCollector:
         # from data model name
         if self.data_model_name:
             self._logger.debug(f"Schema file from data model name: {self.data_model_name}")
-            return f"{files('simtools')}/schemas/model_parameters/{self.data_model_name}.schema.yml"
+            return str(schema.model_parameter_schema_file(self.data_model_name))
 
         # from input metadata
         try:

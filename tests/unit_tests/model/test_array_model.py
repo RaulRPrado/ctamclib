@@ -7,6 +7,7 @@ import pytest
 from astropy import units as u
 from astropy.table import QTable
 
+from simtools.data_model import schema
 from simtools.model.array_model import ArrayModel
 
 logger = logging.getLogger()
@@ -108,7 +109,7 @@ def test_get_telescope_position_parameter(array_model, io_handler):
     assert am._get_telescope_position_parameter(
         "LSTN-01", "North", 10.0 * u.m, 200.0 * u.cm, 30.0 * u.m, "2.0.0"
     ) == {
-        "schema_version": "0.1.0",
+        "schema_version": schema.model_parameter_schema_version(),
         "parameter": "array_element_position_ground",
         "instrument": "LSTN-01",
         "site": "North",

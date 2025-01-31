@@ -9,7 +9,7 @@ import numpy as np
 from astropy.table import QTable
 
 import simtools.utils.general as gen
-from simtools.data_model import data_reader
+from simtools.data_model import data_reader, schema
 from simtools.io_operations import io_handler
 from simtools.layout.geo_coordinates import GeoCoordinates
 from simtools.layout.telescope_position import TelescopePosition
@@ -582,7 +582,10 @@ class ArrayLayout:
         return table
 
     def export_one_telescope_as_json(
-        self, crs_name, parameter_version=None, schema_version="0.2.0"
+        self,
+        crs_name,
+        parameter_version=None,
+        schema_version=None,
     ):
         """
         Return a list containing a single telescope in simtools-DB-style json.
@@ -626,7 +629,7 @@ class ArrayLayout:
             ]
 
         return {
-            "schema_version": schema_version,
+            "schema_version": schema.model_parameter_schema_version(schema_version),
             "parameter": parameter_name,
             "instrument": table["telescope_name"][0],
             "site": self.site,

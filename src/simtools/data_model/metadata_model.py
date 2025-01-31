@@ -13,8 +13,8 @@ from importlib.resources import files
 
 import jsonschema
 
-import simtools.constants
 import simtools.utils.general as gen
+from simtools.constants import METADATA_JSON_SCHEMA
 from simtools.data_model import format_checkers
 from simtools.utils import names
 
@@ -94,7 +94,7 @@ def _load_schema(schema_file=None, schema_version=None):
 
     """
     if schema_file is None:
-        schema_file = files("simtools").joinpath(simtools.constants.METADATA_JSON_SCHEMA)
+        schema_file = METADATA_JSON_SCHEMA
 
     try:
         schema = gen.collect_data_from_file(file_name=schema_file)

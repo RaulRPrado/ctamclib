@@ -1,11 +1,11 @@
 import logging
-from importlib.resources import files
 from pathlib import Path
 
 import jsonschema
 import pytest
 import yaml
 
+from simtools.constants import MODEL_PARAMETER_DESCRIPTION_METASCHEMA, MODEL_PARAMETER_METASCHEMA
 from simtools.data_model import metadata_model
 from simtools.utils import general as gen
 
@@ -29,18 +29,17 @@ def test_load_schema(caplog, tmp_test_directory):
     with pytest.raises(FileNotFoundError):
         metadata_model._load_schema(schema_file="not_existing_file")
 
-    schema_file = files("simtools") / "schemas" / "model_parameter.metaschema.yml"
     # schema versions
     with pytest.raises(ValueError, match=r"^Schema version not given in"):
-        metadata_model._load_schema(schema_file)
+        metadata_model._load_schema(MODEL_PARAMETER_METASCHEMA)
 
-    _schema_1, _ = metadata_model._load_schema(schema_file, "0.1.0")
+    _schema_1, _ = metadata_model._load_schema(MODEL_PARAMETER_METASCHEMA, "0.1.0")
     assert _schema_1["version"] == "0.1.0"
-    _schema_2, _ = metadata_model._load_schema(schema_file, "0.2.0")
+    _schema_2, _ = metadata_model._load_schema(MODEL_PARAMETER_METASCHEMA, "0.2.0")
     assert _schema_2["version"] == "0.2.0"
 
     with pytest.raises(ValueError, match=r"^Schema version 0.2 not found in"):
-        metadata_model._load_schema(schema_file, "0.2")
+        metadata_model._load_schema(MODEL_PARAMETER_METASCHEMA, "0.2")
 
     # test a single doc yaml file (write a temporary schema file; to make sure it is a single doc)
     tmp_schema_file = Path(tmp_test_directory) / "schema.yml"
@@ -74,49 +73,63 @@ def test_validate_schema(tmp_test_directory):
 
 
 def test_validate_schema_astropy_units(caplog):
-    _schema = files("simtools") / "schemas" / "model_parameter_and_data_schema.metaschema.yml"
-
     success_string = "Successful validation of data using schema from"
 
     _dict_1 = gen.collect_data_from_file(file_name="tests/resources/num_gains.schema.yml")
     with caplog.at_level(logging.DEBUG):
-        metadata_model.validate_schema(data=_dict_1, schema_file=_schema)
+        metadata_model.validate_schema(
+            data=_dict_1, schema_file=MODEL_PARAMETER_DESCRIPTION_METASCHEMA
+        )
     assert success_string in caplog.text
 
     # m and cm
     _dict_1["data"][0]["unit"] = "m"
     with caplog.at_level(logging.DEBUG):
-        metadata_model.validate_schema(data=_dict_1, schema_file=_schema)
+        metadata_model.validate_schema(
+            data=_dict_1, schema_file=MODEL_PARAMETER_DESCRIPTION_METASCHEMA
+        )
     assert success_string in caplog.text
     _dict_1["data"][0]["unit"] = "cm"
     with caplog.at_level(logging.DEBUG):
-        metadata_model.validate_schema(data=_dict_1, schema_file=_schema)
+        metadata_model.validate_schema(
+            data=_dict_1, schema_file=MODEL_PARAMETER_DESCRIPTION_METASCHEMA
+        )
     assert success_string in caplog.text
 
     # combined units
     _dict_1["data"][0]["unit"] = "cm/s"
     with caplog.at_level(logging.DEBUG):
-        metadata_model.validate_schema(data=_dict_1, schema_file=_schema)
+        metadata_model.validate_schema(
+            data=_dict_1, schema_file=MODEL_PARAMETER_DESCRIPTION_METASCHEMA
+        )
     assert success_string in caplog.text
     _dict_1["data"][0]["unit"] = "km/ s"
     with caplog.at_level(logging.DEBUG):
-        metadata_model.validate_schema(data=_dict_1, schema_file=_schema)
+        metadata_model.validate_schema(
+            data=_dict_1, schema_file=MODEL_PARAMETER_DESCRIPTION_METASCHEMA
+        )
     assert success_string in caplog.text
 
     # dimensionless
     _dict_1["data"][0]["unit"] = "dimensionless"
     with caplog.at_level(logging.DEBUG):
-        metadata_model.validate_schema(data=_dict_1, schema_file=_schema)
+        metadata_model.validate_schema(
+            data=_dict_1, schema_file=MODEL_PARAMETER_DESCRIPTION_METASCHEMA
+        )
     assert success_string in caplog.text
     _dict_1["data"][0]["unit"] = ""
     with caplog.at_level(logging.DEBUG):
-        metadata_model.validate_schema(data=_dict_1, schema_file=_schema)
+        metadata_model.validate_schema(
+            data=_dict_1, schema_file=MODEL_PARAMETER_DESCRIPTION_METASCHEMA
+        )
     assert success_string in caplog.text
 
     # not good
     _dict_1["data"][0]["unit"] = "not_a_unit"
     with pytest.raises(ValueError, match="'not_a_unit' is not a valid Unit"):
-        metadata_model.validate_schema(data=_dict_1, schema_file=_schema)
+        metadata_model.validate_schema(
+            data=_dict_1, schema_file=MODEL_PARAMETER_DESCRIPTION_METASCHEMA
+        )
 
 
 def test_resolve_references():

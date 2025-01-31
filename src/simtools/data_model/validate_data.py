@@ -12,8 +12,7 @@ from astropy.table import Column, Table, unique
 from astropy.utils.diff import report_diff_values
 
 import simtools.utils.general as gen
-from simtools.constants import MODEL_PARAMETER_SCHEMA_PATH
-from simtools.data_model import format_checkers
+from simtools.data_model import format_checkers, schema
 from simtools.utils import value_conversion
 
 __all__ = ["DataValidator"]
@@ -129,7 +128,7 @@ class DataValidator:
             Validated data dictionary
         """
         data_validator = DataValidator(
-            schema_file=MODEL_PARAMETER_SCHEMA_PATH / f"{par_dict['parameter']}.schema.yml",
+            schema_file=schema.model_parameter_schema_file(f"{par_dict['parameter']}"),
             data_dict=par_dict,
             check_exact_data_type=False,
         )
@@ -158,9 +157,7 @@ class DataValidator:
         if is_model_parameter:
             self._prepare_model_parameter()
 
-        if not (_name := self.data_dict.get("name") or self.data_dict.get("parameter")):
-            raise KeyError("Data dict does not contain a 'name' or 'parameter' key.")
-        self._data_description = self._read_validation_schema(self.schema_file_name, _name)
+        self._data_description = self._read_validation_schema(self.schema_file_name)
 
         value_as_list, unit_as_list = self._get_value_and_units_as_lists()
 
@@ -692,7 +689,7 @@ class DataValidator:
 
         return False
 
-    def _read_validation_schema(self, schema_file, parameter=None):
+    def _read_validation_schema(self, schema_file):
         """
         Read validation schema from file.
 
@@ -700,11 +697,6 @@ class DataValidator:
         ----------
         schema_file: Path
             Schema file describing input data.
-            If this is a directory, a filename of
-            '<par>.schema.yml' is assumed.
-        parameter: str
-            Parameter name of required schema
-            (if None, return first schema in file)
 
         Returns
         -------
@@ -715,17 +707,11 @@ class DataValidator:
         ------
         KeyError
             if 'data' can not be read from dict in schema file
-
         """
         try:
-            if Path(schema_file).is_dir():
-                return gen.collect_data_from_file(
-                    file_name=Path(schema_file) / (parameter + ".schema.yml"),
-                )["data"]
             return gen.collect_data_from_file(file_name=schema_file)["data"]
-        except KeyError:
-            self._logger.error(f"Error reading validation schema from {schema_file}")
-            raise
+        except KeyError as exc:
+            raise KeyError(f"Error reading validation schema from {schema_file}") from exc
 
     def _get_data_description(self, column_name=None, status_test=False):
         """

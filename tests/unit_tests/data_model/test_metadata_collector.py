@@ -6,41 +6,41 @@ import json
 import logging
 import time
 import uuid
-from importlib.resources import files
 from pathlib import Path
 
 import pytest
 
 import simtools.data_model.metadata_collector as metadata_collector
 import simtools.utils.general as gen
+from simtools.constants import METADATA_JSON_SCHEMA, SCHEMA_PATH
+from simtools.data_model import schema
 from simtools.utils import names
 
 logger = logging.getLogger()
 
 
 def test_get_data_model_schema_file_name():
-    schema_file_path = files("simtools") / "schemas"
     # from args_dict / command line
     args_dict = {"no_schema": "schema_file.yml"}
     _collector = metadata_collector.MetadataCollector(args_dict)
     schema_file = _collector.get_data_model_schema_file_name()
     assert schema_file is None
 
-    args_dict = {"schema": str(schema_file_path / "metadata.metaschema.yml")}
+    args_dict = {"schema": str(METADATA_JSON_SCHEMA)}
     _collector = metadata_collector.MetadataCollector(args_dict)
     schema_file = _collector.get_data_model_schema_file_name()
     assert schema_file == args_dict["schema"]
 
     # from metadata
     _collector.top_level_meta["cta"]["product"]["data"]["model"]["url"] = str(
-        schema_file_path / "top_level_meta.schema.yml"
+        SCHEMA_PATH / "top_level_meta.schema.yml"
     )
     schema_file = _collector.get_data_model_schema_file_name()
     # test that priority is given to args_dict (if not none)
     assert schema_file == args_dict["schema"]
     _collector.args_dict["schema"] = None
     schema_file = _collector.get_data_model_schema_file_name()
-    assert schema_file == str(schema_file_path / "top_level_meta.schema.yml")
+    assert schema_file == str(SCHEMA_PATH / "top_level_meta.schema.yml")
 
     _collector.top_level_meta["cta"]["product"]["data"]["model"].pop("url")
     schema_file = _collector.get_data_model_schema_file_name()
@@ -49,9 +49,7 @@ def test_get_data_model_schema_file_name():
     # from data model_name
     _collector.data_model_name = "array_coordinates"
     schema_file = _collector.get_data_model_schema_file_name()
-    assert Path(schema_file) == (
-        files("simtools") / "schemas/model_parameters" / "array_coordinates.schema.yml"
-    )
+    assert Path(schema_file) == (schema.model_parameter_schema_file(_collector.data_model_name))
 
     # from input metadata
     _collector.input_metadata = {
@@ -64,7 +62,7 @@ def test_get_data_model_schema_file_name():
 
 def test_get_data_model_schema_dict(args_dict_site):
     metadata = metadata_collector.MetadataCollector(args_dict=args_dict_site)
-    metadata.schema_file_name = "simtools/schemas/metadata.metaschema.yml"
+    metadata.schema_file_name = METADATA_JSON_SCHEMA
 
     assert isinstance(metadata.get_data_model_schema_dict(), dict)
 

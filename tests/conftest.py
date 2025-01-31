@@ -62,10 +62,6 @@ def io_handler(tmp_test_directory, data_path):
 @pytest.fixture
 def _mock_settings_env_vars(tmp_test_directory):
     """Removes all environment variable from the test system and explicitly sets those needed."""
-    _url = (
-        "https://gitlab.cta-observatory.org/cta-science/simulations/"
-        "simulation-model/model_parameters/-/raw/main"
-    )
 
     with mock.patch.dict(
         os.environ,

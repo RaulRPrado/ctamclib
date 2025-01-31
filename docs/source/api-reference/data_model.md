@@ -50,6 +50,15 @@ Data products ingested or produced by simtools generally follows the CTAO data m
    :members:
 ```
 
+(datamodelschema)=
+
+## schema
+
+```{eval-rst}
+.. automodule:: data_model.schema
+   :members:
+```
+
 (datamodelvalidatedata)=
 
 ## validate_data

@@ -6,7 +6,7 @@ from pathlib import Path
 import astropy.units as u
 from astropy.table import QTable
 
-from simtools.data_model import data_reader
+from simtools.data_model import data_reader, schema
 from simtools.db import db_handler
 from simtools.io_operations import io_handler
 from simtools.model.site_model import SiteModel
@@ -320,7 +320,7 @@ class ArrayModel:
             Dict with telescope position parameters.
         """
         return {
-            "schema_version": "0.1.0",
+            "schema_version": schema.model_parameter_schema_version(),
             "parameter": "array_element_position_ground",
             "instrument": telescope_name,
             "site": site,

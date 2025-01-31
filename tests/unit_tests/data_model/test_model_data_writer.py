@@ -11,6 +11,7 @@ from astropy.table import Table
 
 import simtools.data_model.model_data_writer as writer
 import simtools.utils.general as gen
+from simtools.data_model import schema
 from simtools.data_model.model_data_writer import JsonNumpyEncoder
 
 logger = logging.getLogger()
@@ -266,7 +267,7 @@ def test_get_validated_parameter_dict():
     assert w1.get_validated_parameter_dict(
         parameter_name="num_gains", value=2, instrument="MSTN-01", parameter_version="0.0.1"
     ) == {
-        "schema_version": "0.1.0",
+        "schema_version": schema.model_parameter_schema_version(),
         "parameter": "num_gains",
         "instrument": "MSTN-01",
         "site": "North",
@@ -284,7 +285,7 @@ def test_get_validated_parameter_dict():
         instrument="LSTN-01",
         parameter_version="0.0.1",
     ) == {
-        "schema_version": "0.1.0",
+        "schema_version": schema.model_parameter_schema_version(),
         "parameter": "transit_time_error",
         "instrument": "LSTN-01",
         "site": "North",
@@ -302,7 +303,7 @@ def test_get_validated_parameter_dict():
         instrument="North",
         parameter_version="0.0.1",
     ) == {
-        "schema_version": "0.1.0",
+        "schema_version": schema.model_parameter_schema_version(),
         "parameter": "reference_point_altitude",
         "instrument": "North",
         "site": "North",
@@ -391,15 +392,3 @@ def test_parameter_is_a_file(num_gains_schema):
 
     w1.schema_dict["data"] = []
     assert not w1._parameter_is_a_file()
-
-
-def test_read_model_parameter_schema():
-    w1 = writer.ModelDataWriter()
-
-    schema_file = str(w1._read_model_parameter_schema("num_gains"))
-
-    assert "simtools/schemas/model_parameters/num_gains.schema.yml" in schema_file
-    assert isinstance(w1.schema_dict, dict)
-
-    with pytest.raises(FileNotFoundError, match=r"^Schema file not found:"):
-        w1._read_model_parameter_schema("not_a_parameter")

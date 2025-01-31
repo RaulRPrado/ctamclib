@@ -3,10 +3,11 @@
 import logging
 import re
 from functools import cache
-from importlib.resources import files
 from pathlib import Path
 
 import yaml
+
+from simtools.constants import MODEL_PARAMETER_SCHEMA_PATH, SCHEMA_PATH
 
 _logger = logging.getLogger(__name__)
 
@@ -34,7 +35,7 @@ def array_elements():
     dict
         Array elements.
     """
-    with open(files("simtools") / "schemas/array_elements.yml", encoding="utf-8") as file:
+    with open(Path(SCHEMA_PATH) / "array_elements.yml", encoding="utf-8") as file:
         return yaml.safe_load(file)["data"]
 
 
@@ -59,7 +60,7 @@ def site_names():
 @cache
 def load_model_parameters(class_key_list):
     model_parameters = {}
-    schema_files = list(Path(files("simtools") / "schemas/model_parameters").rglob("*.yml"))
+    schema_files = list(Path(MODEL_PARAMETER_SCHEMA_PATH).rglob("*.yml"))
     for schema_file in schema_files:
         with open(schema_file, encoding="utf-8") as f:
             data = yaml.safe_load(f)
