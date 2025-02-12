@@ -1,0 +1,14 @@
+CTA_SIMPIPE:
+  APPLICATION: simtools-production-calculate-resource-estimates
+  TEST_NAME: production_calculate_resource_estimates
+  CONFIGURATION:
+    AZIMUTH: 60.0
+    ZENITH: 45.0
+    NSB: 0.3
+    SITE: North
+    NUMBER_OF_EVENTS: 1.0e+9
+    LOOKUP_FILE: tests/resources/production_resource_estimates.yaml
+    OUTPUT_PATH: simtools-output
+
+  INTEGRATION_TESTS:
+    - OUTPUT_FILE: estimated_resources.json
