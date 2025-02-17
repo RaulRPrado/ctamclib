@@ -1,0 +1,10 @@
+CTA_SIMPIPE:
+  APPLICATION: simtools-docs-generate-model-prarameter-report
+  TEST_NAME: run
+  CONFIGURATION:
+    SITE: North
+    TELESCOPE: LSTN-01
+    MODEL_VERSION: 6.0.0
+    OUTPUT_PATH: simtools-output/reports/parameters/LSTN-01/
+  INTEGRATION_TESTS:
+    - OUTPUT_FILE: quantum_efficiency.md

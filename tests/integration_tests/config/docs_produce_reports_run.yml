@@ -1,0 +1,10 @@
+CTA_SIMPIPE:
+  APPLICATION: simtools-docs-produce-reports
+  TEST_NAME: run
+  CONFIGURATION:
+    SITE: North
+    TELESCOPE: LSTN-01
+    MODEL_VERSION: 6.0.0
+    OUTPUT_PATH: simtools-output/reports/productions/6.0.0
+  INTEGRATION_TESTS:
+    - OUTPUT_FILE: LSTN-01.md

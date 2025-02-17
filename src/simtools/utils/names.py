@@ -72,12 +72,21 @@ def load_model_parameters(class_key_list):
     return model_parameters
 
 
+def instrument_classes(instrument_type="telescope"):
+    """Return list of instrument classes for a given instrument type."""
+    if instrument_type == "site":
+        return "Site"
+    if instrument_type == "telescope":
+        return ("Structure", "Camera", "Telescope")
+    raise ValueError(f"Invalid instrument type {instrument_type}")
+
+
 def site_parameters():
-    return load_model_parameters(class_key_list="Site")
+    return load_model_parameters(class_key_list=instrument_classes("site"))
 
 
 def telescope_parameters():
-    return load_model_parameters(class_key_list=("Structure", "Camera", "Telescope"))
+    return load_model_parameters(class_key_list=instrument_classes("telescope"))
 
 
 def validate_array_element_id_name(name):
