@@ -41,3 +41,11 @@ the calculation of the number of events to be simulated given a pre-determined m
 .. automodule:: production_configuration.interpolation_handler
    :members:
 ```
+
+
+## limits_calculation
+
+```{eval-rst}
+.. automodule:: production_configuration.limits_calculation
+   :members:
+```

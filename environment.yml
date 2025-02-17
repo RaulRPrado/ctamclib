@@ -9,6 +9,7 @@ dependencies:
   - ctao-dpps-cosmic-ray-spectra
   - ctapipe-base
   - eventio
+  - h5py
   - jsonschema
   - matplotlib-base
   - myst-parser
