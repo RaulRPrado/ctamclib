@@ -1,39 +1,29 @@
-FROM almalinux AS build_image
-WORKDIR /workdir
-ENV DEBIAN_FRONTEND=noninteractive
+FROM almalinux:9.5 AS build_image
+WORKDIR /workdir/sim_telarray
 ARG BUILD_OPT="prod6-sc"
+ARG EXTRA_DEF="-DMAXIMUM_TELESCOPES=128"
 ARG HADRONIC_MODEL="qgs2"
 
 RUN yum update -y && yum install -y \
-    csh \
-    perl \
-    which \
-    gcc-fortran \
-    gsl-devel \
-    patch \
-    && \
+    gcc-fortran gsl-devel libgfortran \
+    csh patch perl which && \
     yum clean all
 
-# corsika and sim_telarray
-RUN mkdir sim_telarray
-COPY corsika7.7_simtelarray.tar.gz sim_telarray
-RUN cd sim_telarray && \
-    tar -xvf corsika7.7_simtelarray.tar.gz && \
-    rm -f examples-with-data.tar.gz && \
+ADD corsika_simtelarray.tar.gz .
+RUN rm -f examples-with-data.tar.gz && \
     rm -f sim_telarray_config.tar.gz && \
-    ./build_all $BUILD_OPT $HADRONIC_MODEL gsl
+    export EXTRA_DEFINES="${EXTRA_DEF}" && ./build_all $BUILD_OPT $HADRONIC_MODEL gsl
 
-RUN find sim_telarray/ -name "*.tar.gz" -exec rm -f {} \;
 
 # corsika source code is removed to follow
 # the corsika non-distribution policy.
-RUN rm -f sim_telarray/corsika-run && \
-    mv sim_telarray/corsika-77*/run sim_telarray/corsika-run && \
-    rm -rf sim_telarray/corsika-77*
+RUN rm -f ./corsika-run && \
+    mv ./corsika-77*/run ./corsika-run && \
+    rm -rf ./corsika-77* && \
+    find . -name "*.tar.gz" -exec rm -f {} \;
 
-FROM almalinux/9-minimal
+FROM almalinux:9.5-minimal
 WORKDIR /workdir
-ENV DEBIAN_FRONTEND=noninteractive
 COPY --from=build_image /workdir/sim_telarray/ /workdir/sim_telarray/
 
 RUN microdnf update -y && microdnf install -y \
@@ -41,8 +31,7 @@ RUN microdnf update -y && microdnf install -y \
     zstd \
     gsl-devel \
     gcc-fortran \
-    procps \
-    && \
+    procps && \
     microdnf clean all
 
 # create a symbolic link to the corsika executable
@@ -52,4 +41,3 @@ RUN cprog=$(/bin/ls /workdir/sim_telarray/corsika-run/corsika*$(uname)_* 2>/dev/
 ENV SIMTEL_PATH="/workdir/sim_telarray/"
 
 SHELL ["/bin/bash", "-c"]
-WORKDIR /workdir/

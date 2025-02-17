@@ -1,30 +1,25 @@
 ARG BUILD_OPT="prod6-sc"
 ARG HADRONIC_MODEL="qgs2"
-ARG VERSION="240927"
-FROM ghcr.io/gammasim/simtools-corsika-sim-telarray-${HADRONIC_MODEL}-${BUILD_OPT}-${VERSION}
+ARG SIMTEL_VERSION="240927"
+ARG CORSIKA_VERSION="77550"
+ARG BERNLOHR_VERSION="1.68"
+FROM ghcr.io/gammasim/simtools-corsika-sim-telarray-${SIMTEL_VERSION}-corsika-${CORSIKA_VERSION}-bernlohr-${BERNLOHR_VERSION}-${BUILD_OPT}-${HADRONIC_MODEL}
 WORKDIR /workdir
-ENV DEBIAN_FRONTEND=noninteractive
 ARG BUILD_BRANCH=main
 
 RUN microdnf update -y && microdnf install -y \
-    findutils \
-    gcc-c++ \
-    git \
-    python3.11-pip \
-    python3.11-devel && \
+    findutils gcc-c++ git \
+    python3.11-pip python3.11-devel && \
     microdnf clean all
 
 RUN BUILD_BRANCH=$(echo $BUILD_BRANCH | sed 's#refs/tags/##') && \
-    git clone -b $BUILD_BRANCH https://github.com/gammasim/simtools.git --depth 1
-RUN cd /workdir/ && \
+    git clone -b $BUILD_BRANCH https://github.com/gammasim/simtools.git --depth 1 && \
     python3.11 -m venv env && \
     source env/bin/activate && \
-    cd /workdir/simtools/ && \
     pip install -U pip && \
-    pip install --no-cache-dir .
+    pip install --no-cache-dir ./simtools && \
+    rm -rf simtools
 
 ENV SIMTEL_PATH="/workdir/sim_telarray/"
 ENV PATH="/workdir/env/bin/:$PATH"
 SHELL ["/bin/bash", "-c"]
-
-WORKDIR /workdir

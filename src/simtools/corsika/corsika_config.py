@@ -311,7 +311,8 @@ class CorsikaConfig:
         return {
             "DEBUG": ["F", 6, "F", 1000000],
             "DATBAS": ["yes"],
-            "DIRECT": ["/dev/null"],
+            "DIRECT": ["./"],
+            "PAROUT": ["F", "F"],
         }
 
     def _input_config_io_buff(self, entry):

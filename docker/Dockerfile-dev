@@ -1,17 +1,14 @@
 ARG BUILD_OPT="prod6-baseline"
 ARG HADRONIC_MODEL="qgs2"
-ARG VERSION="240927"
-FROM ghcr.io/gammasim/simtools-corsika-sim-telarray-${HADRONIC_MODEL}-${BUILD_OPT}-${VERSION}
+ARG SIMTEL_VERSION="240927"
+ARG CORSIKA_VERSION="77550"
+ARG BERNLOHR_VERSION="1.68"
+FROM ghcr.io/gammasim/simtools-corsika-sim-telarray-${SIMTEL_VERSION}-corsika-${CORSIKA_VERSION}-bernlohr-${BERNLOHR_VERSION}-${BUILD_OPT}-${HADRONIC_MODEL}
 WORKDIR /workdir
-ENV DEBIAN_FRONTEND=noninteractive
 
 RUN microdnf update -y && microdnf install -y \
-    findutils \
-    gcc-c++ \
-    git \
-    python3.11-pip \
-    python3.11-devel \
-    wget && \
+    findutils gcc-c++ git \
+    python3.11-pip python3.11-devel wget && \
     microdnf clean all
 
 RUN wget --quiet https://raw.githubusercontent.com/gammasim/simtools/main/pyproject.toml && \

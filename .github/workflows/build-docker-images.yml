@@ -1,5 +1,6 @@
-# https://docs.github.com/en/actions/publishing-packages/publishing-docker-images
+---
 name: docker-simtools
+# Build simtools dev and prod images based on CORSIKA / sim_telarray images (no optimizations)
 
 on:
   workflow_dispatch:
@@ -14,7 +15,7 @@ on:
   release:
     types: [published]
   schedule:
-    - cron: '0 0 * * 0'  # Every Sunday at 00:00 UTC
+    - cron: '0 0 * * 0'  # Every Sunday at 00:00 UTC (build only)
 
 env:
   SIMTOOLS_DB_SERVER: ${{ secrets.DB_SERVER }}
@@ -113,12 +114,12 @@ jobs:
           done
         shell: /usr/bin/bash -e {0}
 
-      - name: Push Docker image
+      - name: Build and push image
         uses: docker/build-push-action@v6
         with:
           context: .
-          build-args: BUILD_BRANCH=${{ env.BUILD_BRANCH }}
           platforms: linux/amd64,linux/arm64/v8
+          build-args: BUILD_BRANCH=${{ env.BUILD_BRANCH }}
           push:
             ${{ github.event_name == 'release' || github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch' }}
           file: ./docker/Dockerfile-${{ matrix.type }}

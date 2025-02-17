@@ -191,7 +191,7 @@ def test_corsika_configuration_debugging_parameters(corsika_config_mock_array_mo
     assert isinstance(
         corsika_config_mock_array_model._corsika_configuration_debugging_parameters(), dict
     )
-    assert len(corsika_config_mock_array_model._corsika_configuration_debugging_parameters()) == 3
+    assert len(corsika_config_mock_array_model._corsika_configuration_debugging_parameters()) == 4
 
 
 def test_rotate_azimuth_by_180deg_no_correct_for_geomagnetic_field_alignment(
