@@ -35,7 +35,7 @@ CTA_SIMPIPE:
         COLUMN_X: 'wavelength'
         COLUMN_Y: 'reflectivity'
       - PARAMETER: mirror_reflectivity
-        TELESCOPE: MSTN-design
+        TELESCOPE: MSTx-NectarCam
         SITE: North
         MODEL_VERSION: 6.0.0
         LABEL: 'MSTN'
@@ -49,7 +49,7 @@ CTA_SIMPIPE:
         COLUMN_X: 'wavelength'
         COLUMN_Y: 'reflectivity'
       - PARAMETER: mirror_reflectivity
-        TELESCOPE: MSTS-design
+        TELESCOPE: MSTx-FlashCam
         SITE: South
         MODEL_VERSION: 6.0.0
         LABEL: 'MSTS'

@@ -3,13 +3,13 @@ CTA_SIMPIPE:
   TEST_NAME: MSTN
   CONFIGURATION:
     SITE: North
-    TELESCOPE: MSTN-design
+    TELESCOPE: MSTx-NectarCam
     MODEL_VERSION: 6.0.0
     OUTPUT_PATH: simtools-output
   INTEGRATION_TESTS:
-    - OUTPUT_FILE: validate_camera_efficiency_MSTN-design_nsb.pdf
-    - OUTPUT_FILE: validate_camera_efficiency_MSTN-design_nsb.png
-    - OUTPUT_FILE: validate_camera_efficiency_MSTN-design_cherenkov.png
-    - OUTPUT_FILE: validate_camera_efficiency_MSTN-design_cherenkov.pdf
-    - OUTPUT_FILE: camera-efficiency-summary-North-MSTN-design-za20.0deg_azm000deg_validate_camera_efficiency.txt
-    - OUTPUT_FILE: camera-efficiency-table-North-MSTN-design-za20.0deg_azm000deg_validate_camera_efficiency.ecsv
+    - OUTPUT_FILE: validate_camera_efficiency_MSTx-NectarCam_nsb.pdf
+    - OUTPUT_FILE: validate_camera_efficiency_MSTx-NectarCam_nsb.png
+    - OUTPUT_FILE: validate_camera_efficiency_MSTx-NectarCam_cherenkov.png
+    - OUTPUT_FILE: validate_camera_efficiency_MSTx-NectarCam_cherenkov.pdf
+    - OUTPUT_FILE: camera-efficiency-summary-North-MSTx-NectarCam-za20.0deg_azm000deg_validate_camera_efficiency.txt
+    - OUTPUT_FILE: camera-efficiency-table-North-MSTx-NectarCam-za20.0deg_azm000deg_validate_camera_efficiency.ecsv

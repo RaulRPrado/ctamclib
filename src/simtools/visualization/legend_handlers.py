@@ -71,6 +71,7 @@ class TelescopeHandler:
     def __init__(self, radius=None):
         self.colors_dict = {
             "LSTN": "darkorange",
+            "MSTx": "dodgerblue",
             "MSTN": "dodgerblue",
             "LSTS": "darkorange",
             "MSTS": "dodgerblue",
@@ -84,6 +85,7 @@ class TelescopeHandler:
         # hardwired values; this is for plotting purposes only
         self.radius_dict = {
             "LSTN": 12.5,
+            "MSTx": 9.15,
             "MSTN": 9.15,
             "LSTS": 12.5,
             "MSTS": 9.15,

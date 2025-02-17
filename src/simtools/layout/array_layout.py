@@ -447,7 +447,7 @@ class ArrayLayout:
                 tel_model = self._get_telescope_model(telescope_name)
             except ValueError:
                 tel_model = self._get_telescope_model(
-                    names.get_array_element_type_from_name(telescope_name) + "-design",
+                    names.get_design_model_from_name(telescope_name),
                 )
 
             for para in ("telescope_axis_height", "telescope_sphere_radius"):

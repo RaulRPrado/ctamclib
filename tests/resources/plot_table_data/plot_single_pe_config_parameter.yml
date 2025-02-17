@@ -25,7 +25,7 @@ CTA_SIMPIPE:
         COLUMN_X: 'amplitude'
         COLUMN_Y: 'response_with_ap'
       - PARAMETER: pm_photoelectron_spectrum
-        TELESCOPE: MSTS-design
+        TELESCOPE: MSTx-FlashCam
         SITE: South
         MODEL_VERSION: 6.0.0
         LABEL: 'MSTS (prompt + afterpulsing)'

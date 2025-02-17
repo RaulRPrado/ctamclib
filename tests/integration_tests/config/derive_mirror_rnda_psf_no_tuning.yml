@@ -3,7 +3,7 @@ CTA_SIMPIPE:
   TEST_NAME: psf_no_tuning
   CONFIGURATION:
     SITE: South
-    TELESCOPE: MSTS-design
+    TELESCOPE: MSTx-FlashCam
     MODEL_VERSION: 6.0.0
     CONTAINMENT_FRACTION: 0.8
     MIRROR_LIST: |

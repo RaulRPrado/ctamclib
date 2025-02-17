@@ -21,14 +21,14 @@ CTA_SIMPIPE:
         COLUMN_X: 'wavelength'
         COLUMN_Y: 'transmission'
       - PARAMETER: camera_filter
-        TELESCOPE: MSTN-design
+        TELESCOPE: MSTx-NectarCam
         SITE: NORTH
         MODEL_VERSION: 6.0.0
         LABEL: 'MSTN'
         COLUMN_X: 'wavelength'
         COLUMN_Y: 'transmission'
       - PARAMETER: camera_filter
-        TELESCOPE: MSTS-design
+        TELESCOPE: MSTx-FlashCam
         SITE: South
         MODEL_VERSION: 6.0.0
         LABEL: 'MSTS'

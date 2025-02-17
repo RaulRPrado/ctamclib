@@ -29,7 +29,7 @@ definitions:
             pattern: '^\d+\.\d+\.\d+$'
         propertyNames:
           description: Allowed parameter name patterns.
-          pattern: '^([A-Za-z](ST|LL)[N,S,x]-\d{2,3}|[A-Za-z](ST|LL)[N,S,x]-design|OBS-(North|South)|Dummy-Telescope)$'
+          pattern: '^([A-Za-z](ST|LL)[N,S,x]-\d{2,3}|[A-Za-z](ST|LL)[N,S,x]-(design|FlashCam|NectarCam)|OBS-(North|South)|Dummy-Telescope)$'
       design_model:
         type: object
         description: Design models.

@@ -11,4 +11,4 @@ CTA_SIMPIPE:
     LOG_LEVEL: DEBUG
   INTEGRATION_TESTS:
     - REFERENCE_OUTPUT_FILE: |
-        ./tests/resources/model_parameters/mirror_list.json
+        ./tests/resources/model_parameters/mirror_list-2.0.0.json

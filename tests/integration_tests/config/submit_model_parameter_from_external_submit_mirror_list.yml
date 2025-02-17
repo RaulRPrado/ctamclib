@@ -4,7 +4,7 @@ CTA_SIMPIPE:
   CONFIGURATION:
     PARAMETER: mirror_list
     VALUE: mirror_CTA-100_1.20-86-0.04.dat
-    INSTRUMENT: MSTS-design
+    INSTRUMENT: MSTx-FlashCam
     SITE: South
     PARAMETER_VERSION: 0.1.0
     INPUT_META: null

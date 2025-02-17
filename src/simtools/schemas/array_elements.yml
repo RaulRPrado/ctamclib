@@ -33,6 +33,12 @@ data:
     observatory: "CTAO"
     site: "South"
     description: "Mid-sized Schwarzschild-Couder telescope"
+  MSTx:
+    collection: "telescopes"
+    observatory: "CTAO"
+    site: ["North", "South"]
+    design_types: ["design", "test", "FlashCam", "NectarCam"]
+    description: "Mid-sized telescope"
   ILLN:
     collection: "calibration_devices"
     observatory: "CTAO"

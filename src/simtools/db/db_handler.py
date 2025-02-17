@@ -228,7 +228,7 @@ class DatabaseHandler:
         site: str
             Site name.
         array_element_name: str
-            Name of the array element model (e.g. LSTN-01, MSTS-design, ILLN-01).
+            Name of the array element model (e.g. LSTN-01, MSTx-FlashCam, ILLN-01).
         model_version: str, list
             Version(s) of the model.
         collection: str
@@ -846,6 +846,6 @@ class DatabaseHandler:
             ]
         except KeyError:
             return [
-                f"{names.get_array_element_type_from_name(array_element_name)}-design",
+                names.get_design_model_from_name(array_element_name),
                 array_element_name,
             ]

@@ -5,6 +5,102 @@ title: SimPipe DB Model Parameter Metaschema
 description: |
   YAML representation of db model parameter metaschema
   (based on simulation model DB).
+version: 0.3.0
+name: modelparameter.metaschema
+type: object
+additionalProperties: false
+
+definitions:
+  SimtoolsModelParameters:
+    description: ""
+    type: object
+    properties:
+      _id:
+        type: string
+        description: "DB unique identifier."
+      entry_date:
+        type: string
+        description: "Value entry date."
+      file:
+        type: boolean
+        description: "This parameter is a file."
+      instrument:
+        type:
+          - string
+          - "null"
+        description: "Associated instrument."
+      site:
+        anyOf:
+          - type: string
+            enum:
+              - North
+              - South
+          - type: "null"
+          - type: array
+            items:
+              type: string
+              enum:
+                - North
+                - South
+        description: "Associated CTAO site."
+      type:
+        type: string
+        description: "Data type"
+        enum:
+          - boolean
+          - dict
+          - double
+          - file
+          - float64
+          - int
+          - int64
+          - string
+          - uint
+          - uint32
+          - uint64
+      unit:
+        anyOf:
+          - type: string
+          - type: "null"
+        description: "Unit of the parameter."
+      value:
+        anyOf:
+          - type: boolean
+          - type: number
+          - type: string
+          - type: "null"
+          - type: array
+        description: "Value of the parameter."
+      parameter_version:
+        anyOf:
+          - type: string
+        description: "Parameter version."
+      schema_version:
+        anyOf:
+          - type: string
+        description: "Metaschema version."
+      unique_id:
+        anyOf:
+          - type: string
+          - type: "null"
+        description: "Unique ID of parameter definition."
+    required:
+      - file
+      - instrument
+      - parameter_version
+      - schema_version
+      - site
+      - type
+      - unit
+      - value
+...
+---
+$schema: http://json-schema.org/draft-06/schema#
+$ref: '#/definitions/SimtoolsModelParameters'
+title: SimPipe DB Model Parameter Metaschema
+description: |
+  YAML representation of db model parameter metaschema
+  (based on simulation model DB).
 version: 0.2.0
 name: modelparameter.metaschema
 type: object

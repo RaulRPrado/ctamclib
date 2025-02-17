@@ -35,7 +35,7 @@ CTA_SIMPIPE:
         COLUMN_X: 'time'
         COLUMN_Y: 'amplitude (low gain)'
       - PARAMETER: fadc_pulse_shape
-        TELESCOPE: MSTN-design
+        TELESCOPE: MSTx-NectarCam
         SITE: NORTH
         MODEL_VERSION: 6.0.0
         LABEL: 'MSTN (high gain)'
@@ -43,7 +43,7 @@ CTA_SIMPIPE:
         COLUMN_Y: 'amplitude'
         NORMALIZE_Y: True
       - PARAMETER: fadc_pulse_shape
-        TELESCOPE: MSTN-design
+        TELESCOPE: MSTx-NectarCam
         SITE: NORTH
         MODEL_VERSION: 6.0.0
         LABEL: 'MSTN (low gain)'
@@ -51,7 +51,7 @@ CTA_SIMPIPE:
         COLUMN_Y: 'amplitude (low gain)'
         NORMALIZE_Y: True
       - PARAMETER: fadc_pulse_shape
-        TELESCOPE: MSTS-design
+        TELESCOPE: MSTx-FlashCam
         SITE: SOUTH
         MODEL_VERSION: 6.0.0
         LABEL: 'MSTS'

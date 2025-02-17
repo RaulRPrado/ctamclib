@@ -3,5 +3,5 @@ CTA_SIMPIPE:
   TEST_NAME: json_validate_schema-0.2.0
   CONFIGURATION:
     SCHEMA: src/simtools/schemas/model_parameter.metaschema.yml
-    FILE_NAME: tests/resources/model_parameters/num_gains-0.2.0.json
+    FILE_NAME: tests/resources/model_parameters/schema-0.2.0/num_gains-1.0.0.json
     DATA_TYPE: schema

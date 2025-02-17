@@ -58,8 +58,8 @@ def test_read_production_table(mock_collect_data_from_file):
     assert model_dict["telescopes"]["parameters"]["LSTN-design"] == "param_value_1"
     assert model_dict["telescopes"]["design_model"]["LSTN-design"] == "design_value_1"
 
-    file.stem = "MSTN-design"
-    with pytest.raises(KeyError, match="MSTN-design"):
+    file.stem = "MSTx-NectarCam"
+    with pytest.raises(KeyError, match="MSTx-NectarCam"):
         db_model_upload._read_production_table(model_dict, file, model_name)
 
     file.stem = "configuration_corsika"
@@ -86,7 +86,7 @@ def test_add_production_tables_to_db(
         {
             "telescopes": {
                 "parameters": {"MSTS-02": "param_value"},
-                "design_model": {"MSTS-02": "MSTS-design"},
+                "design_model": {"MSTS-02": "MSTx-FlashCam"},
             }
         }
     )
@@ -100,7 +100,7 @@ def test_add_production_tables_to_db(
         db_name="test_db",
         production_table={
             "parameters": {"MSTS-02": "param_value"},
-            "design_model": {"MSTS-02": "MSTS-design"},
+            "design_model": {"MSTS-02": "MSTx-FlashCam"},
         },
     )
 

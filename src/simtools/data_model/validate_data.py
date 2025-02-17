@@ -12,7 +12,7 @@ from astropy.utils.diff import report_diff_values
 
 import simtools.utils.general as gen
 from simtools.data_model import schema
-from simtools.utils import value_conversion
+from simtools.utils import names, value_conversion
 
 __all__ = ["DataValidator"]
 
@@ -79,7 +79,7 @@ class DataValidator:
 
         """
         if self.data_file_name:
-            self.validate_data_file()
+            self.validate_data_file(is_model_parameter)
         if isinstance(self.data_dict, dict):
             return self._validate_data_dict(is_model_parameter, lists_as_strings)
         if isinstance(self.data_table, Table):
@@ -87,11 +87,16 @@ class DataValidator:
         self._logger.error("No data or data table to validate")
         raise TypeError
 
-    def validate_data_file(self):
+    def validate_data_file(self, is_model_parameter=None):
         """
         Open data file and read data from file.
 
         Doing this successfully is understood as file validation.
+
+        Parameters
+        ----------
+        is_model_parameter: bool
+            This is a model parameter file.
         """
         try:
             if Path(self.data_file_name).suffix in (".yml", ".yaml", ".json"):
@@ -102,14 +107,30 @@ class DataValidator:
                 self._logger.info(f"Validating tabled data from: {self.data_file_name}")
         except (AttributeError, TypeError):
             pass
+        if is_model_parameter:
+            self.validate_parameter_and_file_name()
 
     def validate_parameter_and_file_name(self):
-        """Validate that file name and key 'parameter_name' in data dict are the same."""
-        if not str(Path(self.data_file_name).stem).startswith(self.data_dict.get("parameter")):
-            raise ValueError(
-                f"Parameter name in data dict {self.data_dict.get('parameter')} and "
-                f"file name {Path(self.data_file_name).stem} do not match."
-            )
+        """
+        Validate model parameter file name.
+
+        Expect that the following convention is used:
+
+        - file name starts with the parameter name
+        - file name ends with parameter version string
+
+        """
+        file_stem = Path(self.data_file_name).stem
+        param = self.data_dict.get("parameter")
+        param_version = self.data_dict.get("parameter_version")
+        if not file_stem.startswith(param):
+            raise ValueError(f"Mismatch: parameter '{param}' vs. file '{file_stem}'.")
+
+        if param_version and not file_stem.endswith(param_version):
+            raise ValueError(f"Mismatch: version '{param_version}' vs. file '{file_stem}'.")
+
+        if param_version is None:
+            self._logger.warning(f"File '{file_stem}' has no parameter version defined.")
 
     @staticmethod
     def validate_model_parameter(par_dict):
@@ -170,7 +191,17 @@ class DataValidator:
         else:
             self.data_dict["value"], self.data_dict["unit"] = value_as_list, unit_as_list
 
-        self._check_version_string(self.data_dict.get("version"))
+        if self.data_dict.get("instrument"):
+            if self.data_dict["instrument"] == self.data_dict["site"]:  # site parameters
+                names.validate_site_name(self.data_dict["site"])
+            else:
+                names.validate_array_element_name(self.data_dict["instrument"])
+                self._check_site_and_array_element_consistency(
+                    self.data_dict.get("instrument"), self.data_dict.get("site")
+                )
+
+        for version_string in ("version", "parameter_version", "model_version"):
+            self._check_version_string(self.data_dict.get(version_string))
 
         if lists_as_strings:
             self._convert_results_to_model_format()
@@ -814,3 +845,24 @@ class DataValidator:
         if not re.match(semver_regex, version):
             raise ValueError(f"Invalid version string '{version}'")
         self._logger.debug(f"Valid version string '{version}'")
+
+    def _check_site_and_array_element_consistency(self, instrument, site):
+        """
+        Check that site and array element names are consistent.
+
+        An example for an inconsistency is 'LSTN' at site 'South'
+        """
+        if not all([instrument, site]) or "OBS" in instrument:
+            return
+
+        def to_sorted_list(value):
+            """Return value as sorted list."""
+            return [value] if isinstance(value, str) else sorted(value)
+
+        instrument_site = to_sorted_list(names.get_site_from_array_element_name(instrument))
+        site = to_sorted_list(site)
+
+        if instrument_site != site:
+            raise ValueError(
+                f"Site '{site}' and instrument site '{instrument_site}' are inconsistent."
+            )

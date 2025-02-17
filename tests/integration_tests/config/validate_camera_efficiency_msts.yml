@@ -3,14 +3,14 @@ CTA_SIMPIPE:
   TEST_NAME: MSTS
   CONFIGURATION:
     SITE: South
-    TELESCOPE: MSTS-design
+    TELESCOPE: MSTx-FlashCam
     MODEL_VERSION: 6.0.0
     NSB_SPECTRUM: tests/resources/benn_ellison_spectrum_for_testing.txt
     OUTPUT_PATH: simtools-output
   INTEGRATION_TESTS:
-    - OUTPUT_FILE: validate_camera_efficiency_MSTS-design_nsb.pdf
-    - OUTPUT_FILE: validate_camera_efficiency_MSTS-design_nsb.png
-    - OUTPUT_FILE: validate_camera_efficiency_MSTS-design_cherenkov.png
-    - OUTPUT_FILE: validate_camera_efficiency_MSTS-design_cherenkov.pdf
-    - OUTPUT_FILE: camera-efficiency-summary-South-MSTS-design-za20.0deg_azm000deg_validate_camera_efficiency.txt
-    - OUTPUT_FILE: camera-efficiency-table-South-MSTS-design-za20.0deg_azm000deg_validate_camera_efficiency.ecsv
+    - OUTPUT_FILE: validate_camera_efficiency_MSTx-FlashCam_nsb.pdf
+    - OUTPUT_FILE: validate_camera_efficiency_MSTx-FlashCam_nsb.png
+    - OUTPUT_FILE: validate_camera_efficiency_MSTx-FlashCam_cherenkov.png
+    - OUTPUT_FILE: validate_camera_efficiency_MSTx-FlashCam_cherenkov.pdf
+    - OUTPUT_FILE: camera-efficiency-summary-South-MSTx-FlashCam-za20.0deg_azm000deg_validate_camera_efficiency.txt
+    - OUTPUT_FILE: camera-efficiency-table-South-MSTx-FlashCam-za20.0deg_azm000deg_validate_camera_efficiency.ecsv

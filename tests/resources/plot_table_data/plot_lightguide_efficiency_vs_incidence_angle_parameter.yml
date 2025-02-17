@@ -21,14 +21,14 @@ CTA_SIMPIPE:
         COLUMN_X: 'angle'
         COLUMN_Y: 'efficiency'
       - PARAMETER: lightguide_efficiency_vs_wavelength
-        TELESCOPE: MSTN-design
+        TELESCOPE: MSTx-NectarCam
         SITE: North
         MODEL_VERSION: 6.0.0
         LABEL: 'MSTN'
         COLUMN_X: 'angle'
         COLUMN_Y: 'efficiency'
       - PARAMETER: lightguide_efficiency_vs_incidence_angle
-        TELESCOPE: MSTS-design
+        TELESCOPE: MSTx-FlashCam
         SITE: SOUTH
         MODEL_VERSION: 6.0.0
         LABEL: 'MSTS'

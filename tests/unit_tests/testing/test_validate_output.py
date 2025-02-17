@@ -99,13 +99,14 @@ def mock_assert_file_type(mocker):
 
 
 def test_compare_json_files_float_strings(create_json_file, file_name):
-    content = {"key": 1, "value": "1.23 4.56 7.89"}
+    content = {"key": 1, "value": "1.23 4.56 7.89", "schema_version": "1.0.0"}
+    content = {"key": 1, "value": "1.23 4.56 7.89", "schema_version": "1.0.0"}
     file1 = create_json_file(file_name(1, "json"), content)
     file2 = create_json_file(file_name(2, "json"), content)
 
     assert validate_output.compare_json_or_yaml_files(file1, file2)
 
-    content3 = {"key": 2, "value": "1.23 4.56 7.80"}
+    content3 = {"key": 2, "value": "1.23 4.56 7.80", "schema_version": "2.0.0"}
     file3 = create_json_file(file_name(3, "json"), content3)
     assert not validate_output.compare_json_or_yaml_files(file1, file3)
 
@@ -448,3 +449,11 @@ def test_validate_simtel_cfg_files(mocker, test_path):
         "INTEGRATION_TESTS": [{"TEST_SIMTEL_CFG_FILES": test_path}],
     }
     validate_output._validate_simtel_cfg_files(config, test_path)
+
+
+def test_compare_value_from_parameter_dict():
+    data_1 = "mirror_list.dat"
+    data_2 = "mirror_list.dat"
+    data_3 = "pixel_list.dat"
+    assert validate_output._compare_value_from_parameter_dict(data_1, data_2)
+    assert not validate_output._compare_value_from_parameter_dict(data_1, data_3)

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import logging
+from unittest import mock
 
 import pytest
 
@@ -20,11 +21,12 @@ def invalid_name():
 def test_get_list_of_array_element_types():
     assert names.get_list_of_array_element_types(array_element_class="telescopes", site=None) == [
         "LSTN",
-        "MSTN",
         "LSTS",
+        "MSTN",
         "MSTS",
-        "SSTS",
+        "MSTx",
         "SCTS",
+        "SSTS",
     ]
 
     assert names.get_list_of_array_element_types(
@@ -39,8 +41,8 @@ def test_get_list_of_array_element_types():
     ) == [
         "LSTS",
         "MSTS",
-        "SSTS",
         "SCTS",
+        "SSTS",
     ]
 
     assert "ILLN" in names.get_list_of_array_element_types(
@@ -76,9 +78,8 @@ def test_validate_array_element_id_name(caplog):
         "01": "01",
         "5": "05",
         "55": "55",
-        "Design": "design",
-        "DESIGN": "design",
-        "TEST": "test",
+        "design": "design",
+        "test": "test",
     }
     for key, value in _test_ids.items():
         assert value == names.validate_array_element_id_name(key)
@@ -86,9 +87,19 @@ def test_validate_array_element_id_name(caplog):
     assert "01" == names.validate_array_element_id_name(1)
     assert "11" == names.validate_array_element_id_name(11)
 
-    for _id in ["no_id", "D2345"]:
+    for _id in ["no_id", "D2345", "FlashCam"]:
         with pytest.raises(ValueError, match=r"^Invalid array element ID name"):
             names.validate_array_element_id_name(_id)
+
+    assert "FlashCam" == names.validate_array_element_id_name("FlashCam", "MSTx")
+
+
+def test_array_element_design_types():
+    assert names.array_element_design_types(None) == ["design", "test"]
+    assert names.array_element_design_types("LSTN") == ["design", "test"]
+    _expected_mstx_types = ["design", "test", "FlashCam", "NectarCam"]
+    for _type in _expected_mstx_types:
+        assert _type in names.array_element_design_types("MSTx")
 
 
 def test_validate_site_name(invalid_name):
@@ -111,10 +122,12 @@ def test_validate_array_element_type(invalid_name):
 
 def test_validate_array_element_name(invalid_name):
     telescopes = {
-        "LSTN-Design": "LSTN-design",
-        "LSTN-TEST": "LSTN-test",
+        "LSTN-Design": "LSTN-Design",
+        "LSTN-TEST": "LSTN-TEST",
         "LSTN-01": "LSTN-01",
         "SSTS-01": "SSTS-01",
+        "OBS-North": "North",
+        "MSTx-NectarCam": "MSTx-NectarCam",
     }
 
     for key, value in telescopes.items():
@@ -135,12 +148,19 @@ def test_get_array_element_name_from_type_site_id():
     assert "LSTS-01" == names.get_array_element_name_from_type_site_id("LST", "South", "01")
 
 
+def test_get_design_model_from_name():
+    assert "LSTN-design" == names.get_design_model_from_name("LSTN-design")
+    assert "LSTN-design" == names.get_design_model_from_name("LSTN-01")
+    assert "MSTS-design" == names.get_design_model_from_name("MSTS-01")
+
+
 def test_get_site_from_array_element_name(invalid_name):
     assert "North" == names.get_site_from_array_element_name("MSTN")
     assert "North" == names.get_site_from_array_element_name("MSTN-05")
     assert "South" == names.get_site_from_array_element_name("MSTS-05")
     with pytest.raises(ValueError, match=rf"^{invalid_name}"):
         names.get_site_from_array_element_name("LSTW")
+    assert ["North", "South"] == names.get_site_from_array_element_name("MSTx")
 
 
 def test_get_class_from_telescope_name(invalid_name):
@@ -156,7 +176,7 @@ def test_get_class_from_telescope_name(invalid_name):
 def test_get_collection_name_from_array_element_name():
 
     assert "telescopes" == names.get_collection_name_from_array_element_name("LSTN-01")
-    assert "telescopes" == names.get_collection_name_from_array_element_name("MSTS-design")
+    assert "telescopes" == names.get_collection_name_from_array_element_name("MSTx-FlashCam")
     assert "sites" == names.get_collection_name_from_array_element_name("OBS-North")
     assert "sites" == names.get_collection_name_from_array_element_name("North")
     assert "sites" == names.get_collection_name_from_array_element_name("OBS-North", False)
@@ -499,6 +519,27 @@ def test_get_simulation_software_name_from_parameter_name():
         )
         == "reference_point_longitude"
     )
+    with pytest.raises(KeyError, match="Parameter not_a_parameter without schema definition"):
+        names.get_simulation_software_name_from_parameter_name(
+            "not_a_parameter", simulation_software="corsika"
+        )
+    assert (
+        names.get_simulation_software_name_from_parameter_name(
+            "reference_point_longitude", simulation_software=None
+        )
+        is None
+    )
+    # Test with parameter having simulation_software as None
+    with mock.patch(
+        "simtools.utils.names.telescope_parameters",
+        return_value={"param_with_none": {"simulation_software": None}},
+    ):
+        assert (
+            names.get_simulation_software_name_from_parameter_name(
+                "param_with_none", simulation_software="sim_telarray"
+            )
+            is None
+        )
 
 
 def test_get_parameter_name_from_simtel_name():

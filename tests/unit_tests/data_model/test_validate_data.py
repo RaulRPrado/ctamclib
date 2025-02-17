@@ -108,7 +108,9 @@ def test_validate_and_transform(caplog, mocker):
         assert isinstance(_table, Table)
     assert "Validating tabled data from:" in caplog.text
 
-    data_validator.data_file_name = "tests/resources/model_parameters/num_gains-0.2.0.json"
+    data_validator.data_file_name = (
+        "tests/resources/model_parameters/schema-0.2.0/num_gains-1.0.0.json"
+    )
     data_validator.schema_file_name = "tests/resources/num_gains.schema.yml"
     mock_prepare_model_parameter = mocker.patch(
         "simtools.data_model.validate_data.DataValidator._prepare_model_parameter"
@@ -136,19 +138,58 @@ def test_validate_data_file(caplog):
     assert "Validating data from:" in caplog.text
 
 
-def test_validate_parameter_and_file_name():
+def test_validate_parameter_and_file_name(caplog):
+
+    num_gain_file = "tests/resources/model_parameters/schema-0.2.0/num_gains-1.0.0.json"
+    parameter = "num_gains"
+    parameter_version = "1.0.0"
 
     data_validator = validate_data.DataValidator()
-    data_validator.data_file_name = "tests/resources/model_parameters/num_gains-0.2.0.json"
+    data_validator.data_file_name = num_gain_file
     data_validator.schema_file_name = "tests/resources/num_gains.schema.yml"
     data_validator.validate_and_transform()
 
     data_validator.data_dict["parameter"] = "incorrect_name"
     with pytest.raises(
         ValueError,
-        match="Parameter name in data dict incorrect_name and file name num_gains-0.2.0 do not match.",
+        match="Mismatch: parameter 'incorrect_name' vs. file 'num_gains-1.0.0'.",
     ):
         data_validator.validate_parameter_and_file_name()
+
+    data_validator.data_file_name = num_gain_file
+    data_validator.data_dict = {
+        "parameter": parameter,
+        "parameter_version": parameter_version,
+    }
+    data_validator.validate_parameter_and_file_name()
+
+    data_validator.data_file_name = (
+        "tests/resources/model_parameters/schema-0.2.0/incorrect_name-1.0.0.json"
+    )
+    data_validator.data_dict = {
+        "parameter": parameter,
+        "parameter_version": parameter_version,
+    }
+    with pytest.raises(
+        ValueError, match="Mismatch: parameter 'num_gains' vs. file 'incorrect_name-1.0.0'"
+    ):
+        data_validator.validate_parameter_and_file_name()
+
+    data_validator.data_file_name = (
+        "tests/resources/model_parameters/schema-0.2.0/num_gains-2.0.0.json"
+    )
+    data_validator.data_dict = {
+        "parameter": parameter,
+        "parameter_version": parameter_version,
+    }
+    with pytest.raises(ValueError, match="Mismatch: version '1.0.0' vs. file 'num_gains-2.0.0'"):
+        data_validator.validate_parameter_and_file_name()
+
+    data_validator.data_file_name = "tests/resources/model_parameters/schema-0.2.0/num_gains.json"
+    data_validator.data_dict = {"parameter": parameter, "parameter_version": None}
+    with caplog.at_level(logging.WARNING):
+        data_validator.validate_parameter_and_file_name()
+    assert "File 'num_gains' has no parameter version defined." in caplog.text
 
 
 def test_validate_data_columns(tmp_test_directory, caplog):
@@ -613,6 +654,15 @@ def test_validate_data_dict():
     }
     data_validator._validate_data_dict()
 
+    data_validator.data_dict = {
+        "name": "reference_point_altitude",
+        "value": 1000.0,
+        "unit": "km",
+        "instrument": "North",
+        "site": "North",
+    }
+    data_validator._validate_data_dict()
+
     # parameter without unit
     data_validator_2 = validate_data.DataValidator(
         schema_file=schema.get_model_parameter_schema_file("num_gains")
@@ -846,3 +896,24 @@ def test_validate_model_parameter(mocker):
     validated_data = validate_data.DataValidator.validate_model_parameter(par_dict)
     assert validated_data["value"] == 1000.0
     assert validated_data["unit"] == "km"
+
+
+def test__check_site_and_array_element_consistency():
+
+    data_validator = validate_data.DataValidator()
+
+    sucess_matrix = [(None, None), ("OBS-North", None), ("OBS-North", "North")]
+
+    for site, array_element in sucess_matrix:
+        assert data_validator._check_site_and_array_element_consistency(site, array_element) is None
+
+    assert data_validator._check_site_and_array_element_consistency("LSTN-01", "North") is None
+    assert data_validator._check_site_and_array_element_consistency("MSTS-22", "South") is None
+    assert (
+        data_validator._check_site_and_array_element_consistency("MSTx-design", ["North", "South"])
+        is None
+    )
+
+    expected_message = "Site '['South']' and instrument site '['North']' are inconsistent."
+    with pytest.raises(ValueError, match=re.escape(expected_message)):
+        data_validator._check_site_and_array_element_consistency("LSTN-03", "South")

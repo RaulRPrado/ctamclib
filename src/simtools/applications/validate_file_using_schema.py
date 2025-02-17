@@ -170,9 +170,9 @@ def validate_data_file(args_dict, logger):
         data_file=args_dict["file_name"],
         check_exact_data_type=args_dict["require_exact_data_type"],
     )
-    data_validator.validate_and_transform(is_model_parameter=True)
-    if args_dict["data_type"].lower() == "model_parameter":
-        data_validator.validate_parameter_and_file_name()
+    data_validator.validate_and_transform(
+        is_model_parameter=(args_dict["data_type"].lower() == "model_parameter")
+    )
 
     logger.info(f"Successful validation of data file {args_dict['file_name']}")
 

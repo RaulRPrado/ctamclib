@@ -22,7 +22,7 @@ def test_site():
 
 def test_telescope():
     assert parser.CommandLineParser.telescope("LSTN-01") == "LSTN-01"
-    assert parser.CommandLineParser.telescope("MSTN-design") == "MSTN-design"
+    assert parser.CommandLineParser.telescope("MSTx-NectarCam") == "MSTx-NectarCam"
 
     with pytest.raises(ValueError, match=r"Invalid name Whipple"):
         assert parser.CommandLineParser.telescope("Whipple")

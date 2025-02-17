@@ -3,7 +3,7 @@ CTA_SIMPIPE:
   TEST_NAME: psf_measurement
   CONFIGURATION:
     SITE: North
-    TELESCOPE: MSTN-design
+    TELESCOPE: MSTx-NectarCam
     MODEL_VERSION: 6.0.0
     CONTAINMENT_FRACTION: 0.8
     PSF_MEASUREMENT: ./tests/resources/MLTdata-preproduction.ecsv

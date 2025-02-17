@@ -141,6 +141,7 @@ def compare_json_or_yaml_files(file1, file2, tolerance=1.0e-2):
     Compare two json or yaml files.
 
     Take into account float comparison for sim_telarray string-embedded floats.
+    Allow differences in 'schema_version' field.
 
     Parameters
     ----------
@@ -159,6 +160,8 @@ def compare_json_or_yaml_files(file1, file2, tolerance=1.0e-2):
     """
     data1 = gen.collect_data_from_file(file1)
     data2 = gen.collect_data_from_file(file2)
+    data1.pop("schema_version", None)
+    data2.pop("schema_version", None)
 
     _logger.debug(f"Comparing json/yaml files: {file1} and {file2}")
 
@@ -181,7 +184,7 @@ def compare_json_or_yaml_files(file1, file2, tolerance=1.0e-2):
     return _comparison
 
 
-def _compare_value_from_parameter_dict(data1, data2, tolerance):
+def _compare_value_from_parameter_dict(data1, data2, tolerance=1.0e-5):
     """Compare value fields given in different formats."""
 
     def _as_list(value):
@@ -193,7 +196,11 @@ def _compare_value_from_parameter_dict(data1, data2, tolerance):
 
     _logger.info(f"Comparing values: {data1} and {data2} (tolerance: {tolerance})")
 
-    return np.allclose(_as_list(data1), _as_list(data2), rtol=tolerance)
+    _as_list_1 = _as_list(data1)
+    _as_list_2 = _as_list(data2)
+    if isinstance(_as_list_1, str):
+        return _as_list_1 == _as_list_2
+    return np.allclose(_as_list_1, _as_list_2, rtol=tolerance)
 
 
 def compare_ecsv_files(file1, file2, tolerance=1.0e-5, test_columns=None):

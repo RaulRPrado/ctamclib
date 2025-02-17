@@ -21,14 +21,14 @@ CTA_SIMPIPE:
         COLUMN_X: 'wavelength'
         COLUMN_Y: 'efficiency'
       - PARAMETER: quantum_efficiency
-        TELESCOPE: MSTN-design
+        TELESCOPE: MSTx-NectarCam
         SITE: NORTH
         MODEL_VERSION: 6.0.0
         LABEL: 'MSTN'
         COLUMN_X: 'wavelength'
         COLUMN_Y: 'efficiency'
       - PARAMETER: quantum_efficiency
-        TELESCOPE: MSTS-design
+        TELESCOPE: MSTx-FlashCam
         SITE: South
         MODEL_VERSION: 6.0.0
         LABEL: 'MSTS'
